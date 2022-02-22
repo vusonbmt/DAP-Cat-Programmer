@@ -1,0 +1,24 @@
+-muwx
+-i VKD_1_0.ihx
+-M
+-Y
+-X 0x0200
+-b HOME = 0x0000
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k C:\Program Files\SDCC\bin\..\lib\small
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+obj/main.rel
+obj/gpio.rel
+obj/usb.rel
+obj/spi.rel
+obj/usbisp.rel
+obj/ICP_N76E003.rel
+obj/C2.rel
+obj/callback.rel
+
+-e

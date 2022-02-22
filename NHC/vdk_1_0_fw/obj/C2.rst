@@ -1,0 +1,1886 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.9.0 #11195 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module C2
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _C2_Delay
+                                     12 	.globl ___delay_ms
+                                     13 	.globl ___delay_us
+                                     14 	.globl _UIF_BUS_RST
+                                     15 	.globl _UIF_DETECT
+                                     16 	.globl _UIF_TRANSFER
+                                     17 	.globl _UIF_SUSPEND
+                                     18 	.globl _UIF_HST_SOF
+                                     19 	.globl _UIF_FIFO_OV
+                                     20 	.globl _U_SIE_FREE
+                                     21 	.globl _U_TOG_OK
+                                     22 	.globl _U_IS_NAK
+                                     23 	.globl _ADC_CHAN0
+                                     24 	.globl _ADC_CHAN1
+                                     25 	.globl _CMP_CHAN
+                                     26 	.globl _ADC_START
+                                     27 	.globl _ADC_IF
+                                     28 	.globl _CMP_IF
+                                     29 	.globl _CMPO
+                                     30 	.globl _U1RI
+                                     31 	.globl _U1TI
+                                     32 	.globl _U1RB8
+                                     33 	.globl _U1TB8
+                                     34 	.globl _U1REN
+                                     35 	.globl _U1SMOD
+                                     36 	.globl _U1SM0
+                                     37 	.globl _S0_R_FIFO
+                                     38 	.globl _S0_T_FIFO
+                                     39 	.globl _S0_FREE
+                                     40 	.globl _S0_IF_BYTE
+                                     41 	.globl _S0_IF_FIRST
+                                     42 	.globl _S0_IF_OV
+                                     43 	.globl _S0_FST_ACT
+                                     44 	.globl _CP_RL2
+                                     45 	.globl _C_T2
+                                     46 	.globl _TR2
+                                     47 	.globl _EXEN2
+                                     48 	.globl _TCLK
+                                     49 	.globl _RCLK
+                                     50 	.globl _EXF2
+                                     51 	.globl _CAP1F
+                                     52 	.globl _TF2
+                                     53 	.globl _RI
+                                     54 	.globl _TI
+                                     55 	.globl _RB8
+                                     56 	.globl _TB8
+                                     57 	.globl _REN
+                                     58 	.globl _SM2
+                                     59 	.globl _SM1
+                                     60 	.globl _SM0
+                                     61 	.globl _IT0
+                                     62 	.globl _IE0
+                                     63 	.globl _IT1
+                                     64 	.globl _IE1
+                                     65 	.globl _TR0
+                                     66 	.globl _TF0
+                                     67 	.globl _TR1
+                                     68 	.globl _TF1
+                                     69 	.globl _RXD
+                                     70 	.globl _PWM1_
+                                     71 	.globl _TXD
+                                     72 	.globl _PWM2_
+                                     73 	.globl _AIN3
+                                     74 	.globl _VBUS1
+                                     75 	.globl _INT0
+                                     76 	.globl _TXD1_
+                                     77 	.globl _INT1
+                                     78 	.globl _T0
+                                     79 	.globl _RXD1_
+                                     80 	.globl _PWM2
+                                     81 	.globl _T1
+                                     82 	.globl _UDP
+                                     83 	.globl _UDM
+                                     84 	.globl _TIN0
+                                     85 	.globl _CAP1
+                                     86 	.globl _T2
+                                     87 	.globl _AIN0
+                                     88 	.globl _VBUS2
+                                     89 	.globl _TIN1
+                                     90 	.globl _CAP2
+                                     91 	.globl _T2EX
+                                     92 	.globl _RXD_
+                                     93 	.globl _TXD_
+                                     94 	.globl _AIN1
+                                     95 	.globl _UCC1
+                                     96 	.globl _TIN2
+                                     97 	.globl _SCS
+                                     98 	.globl _CAP1_
+                                     99 	.globl _T2_
+                                    100 	.globl _AIN2
+                                    101 	.globl _UCC2
+                                    102 	.globl _TIN3
+                                    103 	.globl _PWM1
+                                    104 	.globl _MOSI
+                                    105 	.globl _TIN4
+                                    106 	.globl _RXD1
+                                    107 	.globl _MISO
+                                    108 	.globl _TIN5
+                                    109 	.globl _TXD1
+                                    110 	.globl _SCK
+                                    111 	.globl _IE_SPI0
+                                    112 	.globl _IE_TKEY
+                                    113 	.globl _IE_USB
+                                    114 	.globl _IE_ADC
+                                    115 	.globl _IE_UART1
+                                    116 	.globl _IE_PWMX
+                                    117 	.globl _IE_GPIO
+                                    118 	.globl _IE_WDOG
+                                    119 	.globl _PX0
+                                    120 	.globl _PT0
+                                    121 	.globl _PX1
+                                    122 	.globl _PT1
+                                    123 	.globl _PS
+                                    124 	.globl _PT2
+                                    125 	.globl _PL_FLAG
+                                    126 	.globl _PH_FLAG
+                                    127 	.globl _EX0
+                                    128 	.globl _ET0
+                                    129 	.globl _EX1
+                                    130 	.globl _ET1
+                                    131 	.globl _ES
+                                    132 	.globl _ET2
+                                    133 	.globl _E_DIS
+                                    134 	.globl _EA
+                                    135 	.globl _P
+                                    136 	.globl _F1
+                                    137 	.globl _OV
+                                    138 	.globl _RS0
+                                    139 	.globl _RS1
+                                    140 	.globl _F0
+                                    141 	.globl _AC
+                                    142 	.globl _CY
+                                    143 	.globl _UEP1_DMA_H
+                                    144 	.globl _UEP1_DMA_L
+                                    145 	.globl _UEP1_DMA
+                                    146 	.globl _UEP0_DMA_H
+                                    147 	.globl _UEP0_DMA_L
+                                    148 	.globl _UEP0_DMA
+                                    149 	.globl _UEP2_3_MOD
+                                    150 	.globl _UEP4_1_MOD
+                                    151 	.globl _UEP3_DMA_H
+                                    152 	.globl _UEP3_DMA_L
+                                    153 	.globl _UEP3_DMA
+                                    154 	.globl _UEP2_DMA_H
+                                    155 	.globl _UEP2_DMA_L
+                                    156 	.globl _UEP2_DMA
+                                    157 	.globl _USB_DEV_AD
+                                    158 	.globl _USB_CTRL
+                                    159 	.globl _USB_INT_EN
+                                    160 	.globl _UEP4_T_LEN
+                                    161 	.globl _UEP4_CTRL
+                                    162 	.globl _UEP0_T_LEN
+                                    163 	.globl _UEP0_CTRL
+                                    164 	.globl _USB_RX_LEN
+                                    165 	.globl _USB_MIS_ST
+                                    166 	.globl _USB_INT_ST
+                                    167 	.globl _USB_INT_FG
+                                    168 	.globl _UEP3_T_LEN
+                                    169 	.globl _UEP3_CTRL
+                                    170 	.globl _UEP2_T_LEN
+                                    171 	.globl _UEP2_CTRL
+                                    172 	.globl _UEP1_T_LEN
+                                    173 	.globl _UEP1_CTRL
+                                    174 	.globl _UDEV_CTRL
+                                    175 	.globl _USB_C_CTRL
+                                    176 	.globl _TKEY_DATH
+                                    177 	.globl _TKEY_DATL
+                                    178 	.globl _TKEY_DAT
+                                    179 	.globl _TKEY_CTRL
+                                    180 	.globl _ADC_DATA
+                                    181 	.globl _ADC_CFG
+                                    182 	.globl _ADC_CTRL
+                                    183 	.globl _SBAUD1
+                                    184 	.globl _SBUF1
+                                    185 	.globl _SCON1
+                                    186 	.globl _SPI0_SETUP
+                                    187 	.globl _SPI0_CK_SE
+                                    188 	.globl _SPI0_CTRL
+                                    189 	.globl _SPI0_DATA
+                                    190 	.globl _SPI0_STAT
+                                    191 	.globl _PWM_CK_SE
+                                    192 	.globl _PWM_CTRL
+                                    193 	.globl _PWM_DATA1
+                                    194 	.globl _PWM_DATA2
+                                    195 	.globl _T2CAP1H
+                                    196 	.globl _T2CAP1L
+                                    197 	.globl _T2CAP1
+                                    198 	.globl _TH2
+                                    199 	.globl _TL2
+                                    200 	.globl _T2COUNT
+                                    201 	.globl _RCAP2H
+                                    202 	.globl _RCAP2L
+                                    203 	.globl _RCAP2
+                                    204 	.globl _T2MOD
+                                    205 	.globl _T2CON
+                                    206 	.globl _SBUF
+                                    207 	.globl _SCON
+                                    208 	.globl _TH1
+                                    209 	.globl _TH0
+                                    210 	.globl _TL1
+                                    211 	.globl _TL0
+                                    212 	.globl _TMOD
+                                    213 	.globl _TCON
+                                    214 	.globl _XBUS_AUX
+                                    215 	.globl _PIN_FUNC
+                                    216 	.globl _P3_DIR_PU
+                                    217 	.globl _P3_MOD_OC
+                                    218 	.globl _P3
+                                    219 	.globl _P2
+                                    220 	.globl _P1_DIR_PU
+                                    221 	.globl _P1_MOD_OC
+                                    222 	.globl _P1
+                                    223 	.globl _ROM_CTRL
+                                    224 	.globl _ROM_DATA_H
+                                    225 	.globl _ROM_DATA_L
+                                    226 	.globl _ROM_DATA
+                                    227 	.globl _ROM_ADDR_H
+                                    228 	.globl _ROM_ADDR_L
+                                    229 	.globl _ROM_ADDR
+                                    230 	.globl _GPIO_IE
+                                    231 	.globl _IP_EX
+                                    232 	.globl _IE_EX
+                                    233 	.globl _IP
+                                    234 	.globl _IE
+                                    235 	.globl _WDOG_COUNT
+                                    236 	.globl _RESET_KEEP
+                                    237 	.globl _WAKE_CTRL
+                                    238 	.globl _CLOCK_CFG
+                                    239 	.globl _PCON
+                                    240 	.globl _GLOBAL_CFG
+                                    241 	.globl _SAFE_MOD
+                                    242 	.globl _DPH
+                                    243 	.globl _DPL
+                                    244 	.globl _SP
+                                    245 	.globl _B
+                                    246 	.globl _ACC
+                                    247 	.globl _PSW
+                                    248 	.globl _C2_ReadFlash_PARM_3
+                                    249 	.globl _C2_ReadFlash_PARM_2
+                                    250 	.globl _C2_WriteFlash_PARM_3
+                                    251 	.globl _C2_WriteFlash_PARM_2
+                                    252 	.globl _delay
+                                    253 	.globl _C2_Exit
+                                    254 	.globl _C2_Init
+                                    255 	.globl _C2_Send
+                                    256 	.globl _C2_Read
+                                    257 	.globl _C2_Reset
+                                    258 	.globl _C2_ReadDR
+                                    259 	.globl _C2_WriteAR
+                                    260 	.globl _C2_ReadAR
+                                    261 	.globl _C2_WriteDR
+                                    262 	.globl _C2_WriteFlash
+                                    263 	.globl _C2_ReadFlash
+                                    264 ;--------------------------------------------------------
+                                    265 ; special function registers
+                                    266 ;--------------------------------------------------------
+                                    267 	.area RSEG    (ABS,DATA)
+      000000                        268 	.org 0x0000
+                           0000D0   269 _PSW	=	0x00d0
+                           0000E0   270 _ACC	=	0x00e0
+                           0000F0   271 _B	=	0x00f0
+                           000081   272 _SP	=	0x0081
+                           000082   273 _DPL	=	0x0082
+                           000083   274 _DPH	=	0x0083
+                           0000A1   275 _SAFE_MOD	=	0x00a1
+                           0000B1   276 _GLOBAL_CFG	=	0x00b1
+                           000087   277 _PCON	=	0x0087
+                           0000B9   278 _CLOCK_CFG	=	0x00b9
+                           0000A9   279 _WAKE_CTRL	=	0x00a9
+                           0000FE   280 _RESET_KEEP	=	0x00fe
+                           0000FF   281 _WDOG_COUNT	=	0x00ff
+                           0000A8   282 _IE	=	0x00a8
+                           0000B8   283 _IP	=	0x00b8
+                           0000E8   284 _IE_EX	=	0x00e8
+                           0000E9   285 _IP_EX	=	0x00e9
+                           0000C7   286 _GPIO_IE	=	0x00c7
+                           008584   287 _ROM_ADDR	=	0x8584
+                           000084   288 _ROM_ADDR_L	=	0x0084
+                           000085   289 _ROM_ADDR_H	=	0x0085
+                           008F8E   290 _ROM_DATA	=	0x8f8e
+                           00008E   291 _ROM_DATA_L	=	0x008e
+                           00008F   292 _ROM_DATA_H	=	0x008f
+                           000086   293 _ROM_CTRL	=	0x0086
+                           000090   294 _P1	=	0x0090
+                           000092   295 _P1_MOD_OC	=	0x0092
+                           000093   296 _P1_DIR_PU	=	0x0093
+                           0000A0   297 _P2	=	0x00a0
+                           0000B0   298 _P3	=	0x00b0
+                           000096   299 _P3_MOD_OC	=	0x0096
+                           000097   300 _P3_DIR_PU	=	0x0097
+                           0000C6   301 _PIN_FUNC	=	0x00c6
+                           0000A2   302 _XBUS_AUX	=	0x00a2
+                           000088   303 _TCON	=	0x0088
+                           000089   304 _TMOD	=	0x0089
+                           00008A   305 _TL0	=	0x008a
+                           00008B   306 _TL1	=	0x008b
+                           00008C   307 _TH0	=	0x008c
+                           00008D   308 _TH1	=	0x008d
+                           000098   309 _SCON	=	0x0098
+                           000099   310 _SBUF	=	0x0099
+                           0000C8   311 _T2CON	=	0x00c8
+                           0000C9   312 _T2MOD	=	0x00c9
+                           00CBCA   313 _RCAP2	=	0xcbca
+                           0000CA   314 _RCAP2L	=	0x00ca
+                           0000CB   315 _RCAP2H	=	0x00cb
+                           00CDCC   316 _T2COUNT	=	0xcdcc
+                           0000CC   317 _TL2	=	0x00cc
+                           0000CD   318 _TH2	=	0x00cd
+                           00CFCE   319 _T2CAP1	=	0xcfce
+                           0000CE   320 _T2CAP1L	=	0x00ce
+                           0000CF   321 _T2CAP1H	=	0x00cf
+                           00009B   322 _PWM_DATA2	=	0x009b
+                           00009C   323 _PWM_DATA1	=	0x009c
+                           00009D   324 _PWM_CTRL	=	0x009d
+                           00009E   325 _PWM_CK_SE	=	0x009e
+                           0000F8   326 _SPI0_STAT	=	0x00f8
+                           0000F9   327 _SPI0_DATA	=	0x00f9
+                           0000FA   328 _SPI0_CTRL	=	0x00fa
+                           0000FB   329 _SPI0_CK_SE	=	0x00fb
+                           0000FC   330 _SPI0_SETUP	=	0x00fc
+                           0000C0   331 _SCON1	=	0x00c0
+                           0000C1   332 _SBUF1	=	0x00c1
+                           0000C2   333 _SBAUD1	=	0x00c2
+                           000080   334 _ADC_CTRL	=	0x0080
+                           00009A   335 _ADC_CFG	=	0x009a
+                           00009F   336 _ADC_DATA	=	0x009f
+                           0000C3   337 _TKEY_CTRL	=	0x00c3
+                           00C5C4   338 _TKEY_DAT	=	0xc5c4
+                           0000C4   339 _TKEY_DATL	=	0x00c4
+                           0000C5   340 _TKEY_DATH	=	0x00c5
+                           000091   341 _USB_C_CTRL	=	0x0091
+                           0000D1   342 _UDEV_CTRL	=	0x00d1
+                           0000D2   343 _UEP1_CTRL	=	0x00d2
+                           0000D3   344 _UEP1_T_LEN	=	0x00d3
+                           0000D4   345 _UEP2_CTRL	=	0x00d4
+                           0000D5   346 _UEP2_T_LEN	=	0x00d5
+                           0000D6   347 _UEP3_CTRL	=	0x00d6
+                           0000D7   348 _UEP3_T_LEN	=	0x00d7
+                           0000D8   349 _USB_INT_FG	=	0x00d8
+                           0000D9   350 _USB_INT_ST	=	0x00d9
+                           0000DA   351 _USB_MIS_ST	=	0x00da
+                           0000DB   352 _USB_RX_LEN	=	0x00db
+                           0000DC   353 _UEP0_CTRL	=	0x00dc
+                           0000DD   354 _UEP0_T_LEN	=	0x00dd
+                           0000DE   355 _UEP4_CTRL	=	0x00de
+                           0000DF   356 _UEP4_T_LEN	=	0x00df
+                           0000E1   357 _USB_INT_EN	=	0x00e1
+                           0000E2   358 _USB_CTRL	=	0x00e2
+                           0000E3   359 _USB_DEV_AD	=	0x00e3
+                           00E5E4   360 _UEP2_DMA	=	0xe5e4
+                           0000E4   361 _UEP2_DMA_L	=	0x00e4
+                           0000E5   362 _UEP2_DMA_H	=	0x00e5
+                           00E7E6   363 _UEP3_DMA	=	0xe7e6
+                           0000E6   364 _UEP3_DMA_L	=	0x00e6
+                           0000E7   365 _UEP3_DMA_H	=	0x00e7
+                           0000EA   366 _UEP4_1_MOD	=	0x00ea
+                           0000EB   367 _UEP2_3_MOD	=	0x00eb
+                           00EDEC   368 _UEP0_DMA	=	0xedec
+                           0000EC   369 _UEP0_DMA_L	=	0x00ec
+                           0000ED   370 _UEP0_DMA_H	=	0x00ed
+                           00EFEE   371 _UEP1_DMA	=	0xefee
+                           0000EE   372 _UEP1_DMA_L	=	0x00ee
+                           0000EF   373 _UEP1_DMA_H	=	0x00ef
+                                    374 ;--------------------------------------------------------
+                                    375 ; special function bits
+                                    376 ;--------------------------------------------------------
+                                    377 	.area RSEG    (ABS,DATA)
+      000000                        378 	.org 0x0000
+                           0000D7   379 _CY	=	0x00d7
+                           0000D6   380 _AC	=	0x00d6
+                           0000D5   381 _F0	=	0x00d5
+                           0000D4   382 _RS1	=	0x00d4
+                           0000D3   383 _RS0	=	0x00d3
+                           0000D2   384 _OV	=	0x00d2
+                           0000D1   385 _F1	=	0x00d1
+                           0000D0   386 _P	=	0x00d0
+                           0000AF   387 _EA	=	0x00af
+                           0000AE   388 _E_DIS	=	0x00ae
+                           0000AD   389 _ET2	=	0x00ad
+                           0000AC   390 _ES	=	0x00ac
+                           0000AB   391 _ET1	=	0x00ab
+                           0000AA   392 _EX1	=	0x00aa
+                           0000A9   393 _ET0	=	0x00a9
+                           0000A8   394 _EX0	=	0x00a8
+                           0000BF   395 _PH_FLAG	=	0x00bf
+                           0000BE   396 _PL_FLAG	=	0x00be
+                           0000BD   397 _PT2	=	0x00bd
+                           0000BC   398 _PS	=	0x00bc
+                           0000BB   399 _PT1	=	0x00bb
+                           0000BA   400 _PX1	=	0x00ba
+                           0000B9   401 _PT0	=	0x00b9
+                           0000B8   402 _PX0	=	0x00b8
+                           0000EF   403 _IE_WDOG	=	0x00ef
+                           0000EE   404 _IE_GPIO	=	0x00ee
+                           0000ED   405 _IE_PWMX	=	0x00ed
+                           0000EC   406 _IE_UART1	=	0x00ec
+                           0000EB   407 _IE_ADC	=	0x00eb
+                           0000EA   408 _IE_USB	=	0x00ea
+                           0000E9   409 _IE_TKEY	=	0x00e9
+                           0000E8   410 _IE_SPI0	=	0x00e8
+                           000097   411 _SCK	=	0x0097
+                           000097   412 _TXD1	=	0x0097
+                           000097   413 _TIN5	=	0x0097
+                           000096   414 _MISO	=	0x0096
+                           000096   415 _RXD1	=	0x0096
+                           000096   416 _TIN4	=	0x0096
+                           000095   417 _MOSI	=	0x0095
+                           000095   418 _PWM1	=	0x0095
+                           000095   419 _TIN3	=	0x0095
+                           000095   420 _UCC2	=	0x0095
+                           000095   421 _AIN2	=	0x0095
+                           000094   422 _T2_	=	0x0094
+                           000094   423 _CAP1_	=	0x0094
+                           000094   424 _SCS	=	0x0094
+                           000094   425 _TIN2	=	0x0094
+                           000094   426 _UCC1	=	0x0094
+                           000094   427 _AIN1	=	0x0094
+                           000093   428 _TXD_	=	0x0093
+                           000092   429 _RXD_	=	0x0092
+                           000091   430 _T2EX	=	0x0091
+                           000091   431 _CAP2	=	0x0091
+                           000091   432 _TIN1	=	0x0091
+                           000091   433 _VBUS2	=	0x0091
+                           000091   434 _AIN0	=	0x0091
+                           000090   435 _T2	=	0x0090
+                           000090   436 _CAP1	=	0x0090
+                           000090   437 _TIN0	=	0x0090
+                           0000B7   438 _UDM	=	0x00b7
+                           0000B6   439 _UDP	=	0x00b6
+                           0000B5   440 _T1	=	0x00b5
+                           0000B4   441 _PWM2	=	0x00b4
+                           0000B4   442 _RXD1_	=	0x00b4
+                           0000B4   443 _T0	=	0x00b4
+                           0000B3   444 _INT1	=	0x00b3
+                           0000B2   445 _TXD1_	=	0x00b2
+                           0000B2   446 _INT0	=	0x00b2
+                           0000B2   447 _VBUS1	=	0x00b2
+                           0000B2   448 _AIN3	=	0x00b2
+                           0000B1   449 _PWM2_	=	0x00b1
+                           0000B1   450 _TXD	=	0x00b1
+                           0000B0   451 _PWM1_	=	0x00b0
+                           0000B0   452 _RXD	=	0x00b0
+                           00008F   453 _TF1	=	0x008f
+                           00008E   454 _TR1	=	0x008e
+                           00008D   455 _TF0	=	0x008d
+                           00008C   456 _TR0	=	0x008c
+                           00008B   457 _IE1	=	0x008b
+                           00008A   458 _IT1	=	0x008a
+                           000089   459 _IE0	=	0x0089
+                           000088   460 _IT0	=	0x0088
+                           00009F   461 _SM0	=	0x009f
+                           00009E   462 _SM1	=	0x009e
+                           00009D   463 _SM2	=	0x009d
+                           00009C   464 _REN	=	0x009c
+                           00009B   465 _TB8	=	0x009b
+                           00009A   466 _RB8	=	0x009a
+                           000099   467 _TI	=	0x0099
+                           000098   468 _RI	=	0x0098
+                           0000CF   469 _TF2	=	0x00cf
+                           0000CF   470 _CAP1F	=	0x00cf
+                           0000CE   471 _EXF2	=	0x00ce
+                           0000CD   472 _RCLK	=	0x00cd
+                           0000CC   473 _TCLK	=	0x00cc
+                           0000CB   474 _EXEN2	=	0x00cb
+                           0000CA   475 _TR2	=	0x00ca
+                           0000C9   476 _C_T2	=	0x00c9
+                           0000C8   477 _CP_RL2	=	0x00c8
+                           0000FF   478 _S0_FST_ACT	=	0x00ff
+                           0000FE   479 _S0_IF_OV	=	0x00fe
+                           0000FD   480 _S0_IF_FIRST	=	0x00fd
+                           0000FC   481 _S0_IF_BYTE	=	0x00fc
+                           0000FB   482 _S0_FREE	=	0x00fb
+                           0000FA   483 _S0_T_FIFO	=	0x00fa
+                           0000F8   484 _S0_R_FIFO	=	0x00f8
+                           0000C7   485 _U1SM0	=	0x00c7
+                           0000C5   486 _U1SMOD	=	0x00c5
+                           0000C4   487 _U1REN	=	0x00c4
+                           0000C3   488 _U1TB8	=	0x00c3
+                           0000C2   489 _U1RB8	=	0x00c2
+                           0000C1   490 _U1TI	=	0x00c1
+                           0000C0   491 _U1RI	=	0x00c0
+                           000087   492 _CMPO	=	0x0087
+                           000086   493 _CMP_IF	=	0x0086
+                           000085   494 _ADC_IF	=	0x0085
+                           000084   495 _ADC_START	=	0x0084
+                           000083   496 _CMP_CHAN	=	0x0083
+                           000081   497 _ADC_CHAN1	=	0x0081
+                           000080   498 _ADC_CHAN0	=	0x0080
+                           0000DF   499 _U_IS_NAK	=	0x00df
+                           0000DE   500 _U_TOG_OK	=	0x00de
+                           0000DD   501 _U_SIE_FREE	=	0x00dd
+                           0000DC   502 _UIF_FIFO_OV	=	0x00dc
+                           0000DB   503 _UIF_HST_SOF	=	0x00db
+                           0000DA   504 _UIF_SUSPEND	=	0x00da
+                           0000D9   505 _UIF_TRANSFER	=	0x00d9
+                           0000D8   506 _UIF_DETECT	=	0x00d8
+                           0000D8   507 _UIF_BUS_RST	=	0x00d8
+                           000097   508 _P17	=	0x0097
+                           000095   509 _P15	=	0x0095
+                                    510 ;--------------------------------------------------------
+                                    511 ; overlayable register banks
+                                    512 ;--------------------------------------------------------
+                                    513 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        514 	.ds 8
+                                    515 ;--------------------------------------------------------
+                                    516 ; internal ram data
+                                    517 ;--------------------------------------------------------
+                                    518 	.area DSEG    (DATA)
+      00001D                        519 _u8FPD:
+      00001D                        520 	.ds 1
+      00001E                        521 _C2_WriteFlash_PARM_2:
+      00001E                        522 	.ds 1
+      00001F                        523 _C2_WriteFlash_PARM_3:
+      00001F                        524 	.ds 3
+      000022                        525 _C2_WriteFlash_u8Ret_65536_52:
+      000022                        526 	.ds 1
+      000023                        527 _C2_ReadFlash_PARM_2:
+      000023                        528 	.ds 1
+      000024                        529 _C2_ReadFlash_PARM_3:
+      000024                        530 	.ds 3
+      000027                        531 _C2_ReadFlash_u8Ret_65536_72:
+      000027                        532 	.ds 1
+                                    533 ;--------------------------------------------------------
+                                    534 ; overlayable items in internal ram 
+                                    535 ;--------------------------------------------------------
+                                    536 	.area	OSEG    (OVR,DATA)
+                                    537 ;--------------------------------------------------------
+                                    538 ; indirectly addressable internal ram data
+                                    539 ;--------------------------------------------------------
+                                    540 	.area ISEG    (DATA)
+                                    541 ;--------------------------------------------------------
+                                    542 ; absolute internal ram data
+                                    543 ;--------------------------------------------------------
+                                    544 	.area IABS    (ABS,DATA)
+                                    545 	.area IABS    (ABS,DATA)
+                                    546 ;--------------------------------------------------------
+                                    547 ; bit data
+                                    548 ;--------------------------------------------------------
+                                    549 	.area BSEG    (BIT)
+                                    550 ;--------------------------------------------------------
+                                    551 ; paged external ram data
+                                    552 ;--------------------------------------------------------
+                                    553 	.area PSEG    (PAG,XDATA)
+                                    554 ;--------------------------------------------------------
+                                    555 ; external ram data
+                                    556 ;--------------------------------------------------------
+                                    557 	.area XSEG    (XDATA)
+                                    558 ;--------------------------------------------------------
+                                    559 ; absolute external ram data
+                                    560 ;--------------------------------------------------------
+                                    561 	.area XABS    (ABS,XDATA)
+                                    562 ;--------------------------------------------------------
+                                    563 ; external initialized ram data
+                                    564 ;--------------------------------------------------------
+                                    565 	.area XISEG   (XDATA)
+                                    566 	.area HOME    (CODE)
+                                    567 	.area GSINIT0 (CODE)
+                                    568 	.area GSINIT1 (CODE)
+                                    569 	.area GSINIT2 (CODE)
+                                    570 	.area GSINIT3 (CODE)
+                                    571 	.area GSINIT4 (CODE)
+                                    572 	.area GSINIT5 (CODE)
+                                    573 	.area GSINIT  (CODE)
+                                    574 	.area GSFINAL (CODE)
+                                    575 	.area CSEG    (CODE)
+                                    576 ;--------------------------------------------------------
+                                    577 ; global & static initialisations
+                                    578 ;--------------------------------------------------------
+                                    579 	.area HOME    (CODE)
+                                    580 	.area GSINIT  (CODE)
+                                    581 	.area GSFINAL (CODE)
+                                    582 	.area GSINIT  (CODE)
+                                    583 ;--------------------------------------------------------
+                                    584 ; Home
+                                    585 ;--------------------------------------------------------
+                                    586 	.area HOME    (CODE)
+                                    587 	.area HOME    (CODE)
+                                    588 ;--------------------------------------------------------
+                                    589 ; code
+                                    590 ;--------------------------------------------------------
+                                    591 	.area CSEG    (CODE)
+                                    592 ;------------------------------------------------------------
+                                    593 ;Allocation info for local variables in function 'C2_Delay'
+                                    594 ;------------------------------------------------------------
+                                    595 ;	C2.c:14: void C2_Delay(void)
+                                    596 ;	-----------------------------------------
+                                    597 ;	 function C2_Delay
+                                    598 ;	-----------------------------------------
+      0010EE                        599 _C2_Delay:
+                           000007   600 	ar7 = 0x07
+                           000006   601 	ar6 = 0x06
+                           000005   602 	ar5 = 0x05
+                           000004   603 	ar4 = 0x04
+                           000003   604 	ar3 = 0x03
+                           000002   605 	ar2 = 0x02
+                           000001   606 	ar1 = 0x01
+                           000000   607 	ar0 = 0x00
+                                    608 ;	C2.c:16: __asm nop __endasm;
+      0010EE 00               [12]  609 	nop	
+                                    610 ;	C2.c:17: __asm nop __endasm;
+      0010EF 00               [12]  611 	nop	
+                                    612 ;	C2.c:18: __asm nop __endasm;
+      0010F0 00               [12]  613 	nop	
+                                    614 ;	C2.c:19: __asm nop __endasm;
+      0010F1 00               [12]  615 	nop	
+                                    616 ;	C2.c:20: __asm nop __endasm;
+      0010F2 00               [12]  617 	nop	
+                                    618 ;	C2.c:23: }
+      0010F3 22               [24]  619 	ret
+                                    620 ;------------------------------------------------------------
+                                    621 ;Allocation info for local variables in function 'delay'
+                                    622 ;------------------------------------------------------------
+                                    623 ;uDelay                    Allocated to registers r4 r5 r6 r7 
+                                    624 ;------------------------------------------------------------
+                                    625 ;	C2.c:25: void delay(unsigned long uDelay) {
+                                    626 ;	-----------------------------------------
+                                    627 ;	 function delay
+                                    628 ;	-----------------------------------------
+      0010F4                        629 _delay:
+                                    630 ;	C2.c:26: __delay_us(uDelay);
+                                    631 ;	C2.c:45: }
+      0010F4 02 00 C2         [24]  632 	ljmp	___delay_us
+                                    633 ;------------------------------------------------------------
+                                    634 ;Allocation info for local variables in function 'C2_Exit'
+                                    635 ;------------------------------------------------------------
+                                    636 ;	C2.c:61: void C2_Exit(void) {
+                                    637 ;	-----------------------------------------
+                                    638 ;	 function C2_Exit
+                                    639 ;	-----------------------------------------
+      0010F7                        640 _C2_Exit:
+                                    641 ;	C2.c:62: C2K_1;
+                                    642 ;	assignBit
+      0010F7 D2 97            [12]  643 	setb	_P17
+                                    644 ;	C2.c:63: C2K_DIS();
+      0010F9 43 90 80         [24]  645 	orl	_P1,#0x80
+      0010FC 43 92 80         [24]  646 	orl	_P1_MOD_OC,#0x80
+      0010FF 43 93 80         [24]  647 	orl	_P1_DIR_PU,#0x80
+                                    648 ;	C2.c:64: C2D_1;
+                                    649 ;	assignBit
+      001102 D2 95            [12]  650 	setb	_P15
+                                    651 ;	C2.c:65: C2D_DIS();
+      001104 43 90 20         [24]  652 	orl	_P1,#0x20
+      001107 43 92 20         [24]  653 	orl	_P1_MOD_OC,#0x20
+      00110A 43 93 20         [24]  654 	orl	_P1_DIR_PU,#0x20
+                                    655 ;	C2.c:66: }
+      00110D 22               [24]  656 	ret
+                                    657 ;------------------------------------------------------------
+                                    658 ;Allocation info for local variables in function 'C2_Init'
+                                    659 ;------------------------------------------------------------
+                                    660 ;u8Address                 Allocated to registers r7 
+                                    661 ;------------------------------------------------------------
+                                    662 ;	C2.c:68: void C2_Init(uint8_t u8Address) {
+                                    663 ;	-----------------------------------------
+                                    664 ;	 function C2_Init
+                                    665 ;	-----------------------------------------
+      00110E                        666 _C2_Init:
+      00110E AF 82            [24]  667 	mov	r7,dpl
+                                    668 ;	C2.c:69: C2K_1;
+                                    669 ;	assignBit
+      001110 D2 97            [12]  670 	setb	_P17
+                                    671 ;	C2.c:70: C2K_EN();
+      001112 53 92 7F         [24]  672 	anl	_P1_MOD_OC,#0x7f
+      001115 43 93 80         [24]  673 	orl	_P1_DIR_PU,#0x80
+                                    674 ;	C2.c:71: C2D_1;
+                                    675 ;	assignBit
+      001118 D2 95            [12]  676 	setb	_P15
+                                    677 ;	C2.c:72: C2D_EN();
+      00111A 53 92 DF         [24]  678 	anl	_P1_MOD_OC,#0xdf
+      00111D 43 93 20         [24]  679 	orl	_P1_DIR_PU,#0x20
+                                    680 ;	C2.c:73: u8FPD = u8Address;
+      001120 8F 1D            [24]  681 	mov	_u8FPD,r7
+                                    682 ;	C2.c:74: }
+      001122 22               [24]  683 	ret
+                                    684 ;------------------------------------------------------------
+                                    685 ;Allocation info for local variables in function 'C2_Send'
+                                    686 ;------------------------------------------------------------
+                                    687 ;u8Data                    Allocated to registers r7 
+                                    688 ;i                         Allocated to registers r6 
+                                    689 ;------------------------------------------------------------
+                                    690 ;	C2.c:76: void C2_Send(uint8_t u8Data) {
+                                    691 ;	-----------------------------------------
+                                    692 ;	 function C2_Send
+                                    693 ;	-----------------------------------------
+      001123                        694 _C2_Send:
+      001123 AF 82            [24]  695 	mov	r7,dpl
+                                    696 ;	C2.c:78: C2D_EN();
+      001125 53 92 DF         [24]  697 	anl	_P1_MOD_OC,#0xdf
+      001128 43 93 20         [24]  698 	orl	_P1_DIR_PU,#0x20
+                                    699 ;	C2.c:79: for(i=0; i<8; ++i) {
+      00112B 7E 00            [12]  700 	mov	r6,#0x00
+      00112D                        701 00105$:
+                                    702 ;	C2.c:80: if(u8Data&0x01) {
+      00112D EF               [12]  703 	mov	a,r7
+      00112E 30 E0 04         [24]  704 	jnb	acc.0,00102$
+                                    705 ;	C2.c:81: C2D_1;
+                                    706 ;	assignBit
+      001131 D2 95            [12]  707 	setb	_P15
+      001133 80 02            [24]  708 	sjmp	00103$
+      001135                        709 00102$:
+                                    710 ;	C2.c:83: C2D_0;
+                                    711 ;	assignBit
+      001135 C2 95            [12]  712 	clr	_P15
+      001137                        713 00103$:
+                                    714 ;	C2.c:86: C2_Delay();
+      001137 C0 07            [24]  715 	push	ar7
+      001139 C0 06            [24]  716 	push	ar6
+      00113B 12 10 EE         [24]  717 	lcall	_C2_Delay
+      00113E D0 06            [24]  718 	pop	ar6
+      001140 D0 07            [24]  719 	pop	ar7
+                                    720 ;	C2.c:87: C2K_0;
+                                    721 ;	assignBit
+      001142 C2 97            [12]  722 	clr	_P17
+                                    723 ;	C2.c:89: u8Data>>=1;
+      001144 EF               [12]  724 	mov	a,r7
+      001145 C3               [12]  725 	clr	c
+      001146 13               [12]  726 	rrc	a
+      001147 FF               [12]  727 	mov	r7,a
+                                    728 ;	C2.c:90: C2K_1;
+                                    729 ;	assignBit
+      001148 D2 97            [12]  730 	setb	_P17
+                                    731 ;	C2.c:79: for(i=0; i<8; ++i) {
+      00114A 0E               [12]  732 	inc	r6
+      00114B BE 08 00         [24]  733 	cjne	r6,#0x08,00119$
+      00114E                        734 00119$:
+      00114E 40 DD            [24]  735 	jc	00105$
+                                    736 ;	C2.c:93: }
+      001150 22               [24]  737 	ret
+                                    738 ;------------------------------------------------------------
+                                    739 ;Allocation info for local variables in function 'C2_Read'
+                                    740 ;------------------------------------------------------------
+                                    741 ;i                         Allocated to registers r6 
+                                    742 ;ret                       Allocated to registers r7 
+                                    743 ;------------------------------------------------------------
+                                    744 ;	C2.c:95: uint8_t C2_Read(void) {
+                                    745 ;	-----------------------------------------
+                                    746 ;	 function C2_Read
+                                    747 ;	-----------------------------------------
+      001151                        748 _C2_Read:
+                                    749 ;	C2.c:97: uint8_t ret=0;
+      001151 7F 00            [12]  750 	mov	r7,#0x00
+                                    751 ;	C2.c:98: C2D_DIS();
+      001153 43 90 20         [24]  752 	orl	_P1,#0x20
+      001156 43 92 20         [24]  753 	orl	_P1_MOD_OC,#0x20
+      001159 43 93 20         [24]  754 	orl	_P1_DIR_PU,#0x20
+                                    755 ;	C2.c:99: for(i=0; i<8; ++i) {
+      00115C 7E 00            [12]  756 	mov	r6,#0x00
+      00115E                        757 00104$:
+                                    758 ;	C2.c:100: C2K_0;
+                                    759 ;	assignBit
+      00115E C2 97            [12]  760 	clr	_P17
+                                    761 ;	C2.c:102: C2_Delay();
+      001160 C0 07            [24]  762 	push	ar7
+      001162 C0 06            [24]  763 	push	ar6
+      001164 12 10 EE         [24]  764 	lcall	_C2_Delay
+      001167 D0 06            [24]  765 	pop	ar6
+      001169 D0 07            [24]  766 	pop	ar7
+                                    767 ;	C2.c:103: C2K_1;
+                                    768 ;	assignBit
+      00116B D2 97            [12]  769 	setb	_P17
+                                    770 ;	C2.c:105: ret>>=1;
+                                    771 ;	C2.c:106: if(C2D_IN_VAL) {
+                                    772 ;	C2.c:107: ret|=0x80;
+      00116D EF               [12]  773 	mov	a,r7
+      00116E A2 95            [12]  774 	mov	c,_P15
+      001170 13               [12]  775 	rrc	a
+      001171 FF               [12]  776 	mov	r7,a
+                                    777 ;	C2.c:99: for(i=0; i<8; ++i) {
+      001172 0E               [12]  778 	inc	r6
+      001173 BE 08 00         [24]  779 	cjne	r6,#0x08,00122$
+      001176                        780 00122$:
+      001176 40 E6            [24]  781 	jc	00104$
+                                    782 ;	C2.c:110: return ret;
+      001178 8F 82            [24]  783 	mov	dpl,r7
+                                    784 ;	C2.c:111: }
+      00117A 22               [24]  785 	ret
+                                    786 ;------------------------------------------------------------
+                                    787 ;Allocation info for local variables in function 'C2_Reset'
+                                    788 ;------------------------------------------------------------
+                                    789 ;	C2.c:113: void C2_Reset(void) {
+                                    790 ;	-----------------------------------------
+                                    791 ;	 function C2_Reset
+                                    792 ;	-----------------------------------------
+      00117B                        793 _C2_Reset:
+                                    794 ;	C2.c:114: C2D_DIS();
+      00117B 43 90 20         [24]  795 	orl	_P1,#0x20
+      00117E 43 92 20         [24]  796 	orl	_P1_MOD_OC,#0x20
+      001181 43 93 20         [24]  797 	orl	_P1_DIR_PU,#0x20
+                                    798 ;	C2.c:115: C2K_0;
+                                    799 ;	assignBit
+      001184 C2 97            [12]  800 	clr	_P17
+                                    801 ;	C2.c:116: __delay_ms(100);
+      001186 90 00 64         [24]  802 	mov	dptr,#0x0064
+      001189 12 00 9D         [24]  803 	lcall	___delay_ms
+                                    804 ;	C2.c:117: C2K_1;
+                                    805 ;	assignBit
+      00118C D2 97            [12]  806 	setb	_P17
+                                    807 ;	C2.c:119: }
+      00118E 22               [24]  808 	ret
+                                    809 ;------------------------------------------------------------
+                                    810 ;Allocation info for local variables in function 'C2_ReadDR'
+                                    811 ;------------------------------------------------------------
+                                    812 ;pu8Ret                    Allocated to registers r5 r6 r7 
+                                    813 ;ret                       Allocated to registers r4 
+                                    814 ;i                         Allocated to registers r2 r3 
+                                    815 ;u8TimeOut                 Allocated to registers r4 
+                                    816 ;------------------------------------------------------------
+                                    817 ;	C2.c:121: uint8_t C2_ReadDR(uint8_t *pu8Ret) {
+                                    818 ;	-----------------------------------------
+                                    819 ;	 function C2_ReadDR
+                                    820 ;	-----------------------------------------
+      00118F                        821 _C2_ReadDR:
+      00118F AD 82            [24]  822 	mov	r5,dpl
+      001191 AE 83            [24]  823 	mov	r6,dph
+      001193 AF F0            [24]  824 	mov	r7,b
+                                    825 ;	C2.c:126: C2D_DIS();
+      001195 43 90 20         [24]  826 	orl	_P1,#0x20
+      001198 43 92 20         [24]  827 	orl	_P1_MOD_OC,#0x20
+      00119B 43 93 20         [24]  828 	orl	_P1_DIR_PU,#0x20
+                                    829 ;	C2.c:127: C2K_0;
+                                    830 ;	assignBit
+      00119E C2 97            [12]  831 	clr	_P17
+                                    832 ;	C2.c:129: C2_Delay();
+      0011A0 C0 07            [24]  833 	push	ar7
+      0011A2 C0 06            [24]  834 	push	ar6
+      0011A4 C0 05            [24]  835 	push	ar5
+      0011A6 12 10 EE         [24]  836 	lcall	_C2_Delay
+                                    837 ;	C2.c:130: C2K_1;
+                                    838 ;	assignBit
+      0011A9 D2 97            [12]  839 	setb	_P17
+                                    840 ;	C2.c:131: delay(1);
+      0011AB 90 00 01         [24]  841 	mov	dptr,#(0x01&0x00ff)
+      0011AE E4               [12]  842 	clr	a
+      0011AF F5 F0            [12]  843 	mov	b,a
+      0011B1 12 10 F4         [24]  844 	lcall	_delay
+                                    845 ;	C2.c:133: C2D_EN();
+      0011B4 53 92 DF         [24]  846 	anl	_P1_MOD_OC,#0xdf
+      0011B7 43 93 20         [24]  847 	orl	_P1_DIR_PU,#0x20
+                                    848 ;	C2.c:135: delay(6);
+      0011BA 90 00 06         [24]  849 	mov	dptr,#(0x06&0x00ff)
+      0011BD E4               [12]  850 	clr	a
+      0011BE F5 F0            [12]  851 	mov	b,a
+      0011C0 12 10 F4         [24]  852 	lcall	_delay
+                                    853 ;	C2.c:137: C2D_0;
+                                    854 ;	assignBit
+      0011C3 C2 95            [12]  855 	clr	_P15
+                                    856 ;	C2.c:138: delay(1);
+      0011C5 90 00 01         [24]  857 	mov	dptr,#(0x01&0x00ff)
+      0011C8 E4               [12]  858 	clr	a
+      0011C9 F5 F0            [12]  859 	mov	b,a
+      0011CB 12 10 F4         [24]  860 	lcall	_delay
+                                    861 ;	C2.c:139: C2K_0;
+                                    862 ;	assignBit
+      0011CE C2 97            [12]  863 	clr	_P17
+                                    864 ;	C2.c:141: C2_Delay();
+      0011D0 12 10 EE         [24]  865 	lcall	_C2_Delay
+                                    866 ;	C2.c:142: C2K_1;
+                                    867 ;	assignBit
+      0011D3 D2 97            [12]  868 	setb	_P17
+                                    869 ;	C2.c:143: delay(1);
+      0011D5 90 00 01         [24]  870 	mov	dptr,#(0x01&0x00ff)
+      0011D8 E4               [12]  871 	clr	a
+      0011D9 F5 F0            [12]  872 	mov	b,a
+      0011DB 12 10 F4         [24]  873 	lcall	_delay
+                                    874 ;	C2.c:145: C2K_0;
+                                    875 ;	assignBit
+      0011DE C2 97            [12]  876 	clr	_P17
+                                    877 ;	C2.c:147: C2_Delay();
+      0011E0 12 10 EE         [24]  878 	lcall	_C2_Delay
+                                    879 ;	C2.c:148: C2K_1;
+                                    880 ;	assignBit
+      0011E3 D2 97            [12]  881 	setb	_P17
+                                    882 ;	C2.c:149: delay(1);
+      0011E5 90 00 01         [24]  883 	mov	dptr,#(0x01&0x00ff)
+      0011E8 E4               [12]  884 	clr	a
+      0011E9 F5 F0            [12]  885 	mov	b,a
+      0011EB 12 10 F4         [24]  886 	lcall	_delay
+                                    887 ;	C2.c:154: C2K_0;
+                                    888 ;	assignBit
+      0011EE C2 97            [12]  889 	clr	_P17
+                                    890 ;	C2.c:156: C2_Delay();
+      0011F0 12 10 EE         [24]  891 	lcall	_C2_Delay
+                                    892 ;	C2.c:157: C2K_1;
+                                    893 ;	assignBit
+      0011F3 D2 97            [12]  894 	setb	_P17
+                                    895 ;	C2.c:158: delay(1);
+      0011F5 90 00 01         [24]  896 	mov	dptr,#(0x01&0x00ff)
+      0011F8 E4               [12]  897 	clr	a
+      0011F9 F5 F0            [12]  898 	mov	b,a
+      0011FB 12 10 F4         [24]  899 	lcall	_delay
+                                    900 ;	C2.c:160: C2K_0;
+                                    901 ;	assignBit
+      0011FE C2 97            [12]  902 	clr	_P17
+                                    903 ;	C2.c:162: C2_Delay();
+      001200 12 10 EE         [24]  904 	lcall	_C2_Delay
+                                    905 ;	C2.c:163: C2K_1;
+                                    906 ;	assignBit
+      001203 D2 97            [12]  907 	setb	_P17
+                                    908 ;	C2.c:164: delay(1);
+      001205 90 00 01         [24]  909 	mov	dptr,#(0x01&0x00ff)
+      001208 E4               [12]  910 	clr	a
+      001209 F5 F0            [12]  911 	mov	b,a
+      00120B 12 10 F4         [24]  912 	lcall	_delay
+                                    913 ;	C2.c:167: delay(6);
+      00120E 90 00 06         [24]  914 	mov	dptr,#(0x06&0x00ff)
+      001211 E4               [12]  915 	clr	a
+      001212 F5 F0            [12]  916 	mov	b,a
+      001214 12 10 F4         [24]  917 	lcall	_delay
+      001217 D0 05            [24]  918 	pop	ar5
+      001219 D0 06            [24]  919 	pop	ar6
+      00121B D0 07            [24]  920 	pop	ar7
+                                    921 ;	C2.c:169: C2D_DIS();
+      00121D 43 90 20         [24]  922 	orl	_P1,#0x20
+      001220 43 92 20         [24]  923 	orl	_P1_MOD_OC,#0x20
+      001223 43 93 20         [24]  924 	orl	_P1_DIR_PU,#0x20
+                                    925 ;	C2.c:171: u8TimeOut = 1;
+      001226 7C 01            [12]  926 	mov	r4,#0x01
+                                    927 ;	C2.c:172: for (i = 0; i < 50000; ++i) {
+      001228 7A 00            [12]  928 	mov	r2,#0x00
+      00122A 7B 00            [12]  929 	mov	r3,#0x00
+      00122C                        930 00106$:
+                                    931 ;	C2.c:173: C2K_0;
+                                    932 ;	assignBit
+      00122C C2 97            [12]  933 	clr	_P17
+                                    934 ;	C2.c:175: C2_Delay();
+      00122E C0 07            [24]  935 	push	ar7
+      001230 C0 06            [24]  936 	push	ar6
+      001232 C0 05            [24]  937 	push	ar5
+      001234 C0 04            [24]  938 	push	ar4
+      001236 C0 03            [24]  939 	push	ar3
+      001238 C0 02            [24]  940 	push	ar2
+      00123A 12 10 EE         [24]  941 	lcall	_C2_Delay
+                                    942 ;	C2.c:176: C2K_1;
+                                    943 ;	assignBit
+      00123D D2 97            [12]  944 	setb	_P17
+                                    945 ;	C2.c:177: delay(1);
+      00123F 90 00 01         [24]  946 	mov	dptr,#(0x01&0x00ff)
+      001242 E4               [12]  947 	clr	a
+      001243 F5 F0            [12]  948 	mov	b,a
+      001245 12 10 F4         [24]  949 	lcall	_delay
+      001248 D0 02            [24]  950 	pop	ar2
+      00124A D0 03            [24]  951 	pop	ar3
+      00124C D0 04            [24]  952 	pop	ar4
+      00124E D0 05            [24]  953 	pop	ar5
+      001250 D0 06            [24]  954 	pop	ar6
+      001252 D0 07            [24]  955 	pop	ar7
+                                    956 ;	C2.c:178: if(C2D_IN_VAL) {
+      001254 30 95 04         [24]  957 	jnb	_P15,00107$
+                                    958 ;	C2.c:179: u8TimeOut = 0;
+      001257 7C 00            [12]  959 	mov	r4,#0x00
+                                    960 ;	C2.c:180: break;
+      001259 80 0E            [24]  961 	sjmp	00103$
+      00125B                        962 00107$:
+                                    963 ;	C2.c:172: for (i = 0; i < 50000; ++i) {
+      00125B 0A               [12]  964 	inc	r2
+      00125C BA 00 01         [24]  965 	cjne	r2,#0x00,00123$
+      00125F 0B               [12]  966 	inc	r3
+      001260                        967 00123$:
+      001260 C3               [12]  968 	clr	c
+      001261 EA               [12]  969 	mov	a,r2
+      001262 94 50            [12]  970 	subb	a,#0x50
+      001264 EB               [12]  971 	mov	a,r3
+      001265 94 C3            [12]  972 	subb	a,#0xc3
+      001267 40 C3            [24]  973 	jc	00106$
+      001269                        974 00103$:
+                                    975 ;	C2.c:185: if (u8TimeOut) {
+      001269 EC               [12]  976 	mov	a,r4
+      00126A 60 0E            [24]  977 	jz	00105$
+                                    978 ;	C2.c:186: *pu8Ret = 0;
+      00126C 8D 82            [24]  979 	mov	dpl,r5
+      00126E 8E 83            [24]  980 	mov	dph,r6
+      001270 8F F0            [24]  981 	mov	b,r7
+      001272 E4               [12]  982 	clr	a
+      001273 12 22 D4         [24]  983 	lcall	__gptrput
+                                    984 ;	C2.c:187: return 0;
+      001276 75 82 00         [24]  985 	mov	dpl,#0x00
+      001279 22               [24]  986 	ret
+      00127A                        987 00105$:
+                                    988 ;	C2.c:191: delay(6);
+      00127A 90 00 06         [24]  989 	mov	dptr,#(0x06&0x00ff)
+      00127D E4               [12]  990 	clr	a
+      00127E F5 F0            [12]  991 	mov	b,a
+      001280 C0 07            [24]  992 	push	ar7
+      001282 C0 06            [24]  993 	push	ar6
+      001284 C0 05            [24]  994 	push	ar5
+      001286 12 10 F4         [24]  995 	lcall	_delay
+                                    996 ;	C2.c:193: ret=C2_Read();
+      001289 12 11 51         [24]  997 	lcall	_C2_Read
+      00128C AC 82            [24]  998 	mov	r4,dpl
+                                    999 ;	C2.c:196: delay(6);
+      00128E 90 00 06         [24] 1000 	mov	dptr,#(0x06&0x00ff)
+      001291 E4               [12] 1001 	clr	a
+      001292 F5 F0            [12] 1002 	mov	b,a
+      001294 C0 04            [24] 1003 	push	ar4
+      001296 12 10 F4         [24] 1004 	lcall	_delay
+                                   1005 ;	C2.c:198: C2K_0;
+                                   1006 ;	assignBit
+      001299 C2 97            [12] 1007 	clr	_P17
+                                   1008 ;	C2.c:200: C2_Delay();
+      00129B 12 10 EE         [24] 1009 	lcall	_C2_Delay
+                                   1010 ;	C2.c:201: C2K_1;
+                                   1011 ;	assignBit
+      00129E D2 97            [12] 1012 	setb	_P17
+                                   1013 ;	C2.c:202: delay(1);
+      0012A0 90 00 01         [24] 1014 	mov	dptr,#(0x01&0x00ff)
+      0012A3 E4               [12] 1015 	clr	a
+      0012A4 F5 F0            [12] 1016 	mov	b,a
+      0012A6 12 10 F4         [24] 1017 	lcall	_delay
+      0012A9 D0 04            [24] 1018 	pop	ar4
+      0012AB D0 05            [24] 1019 	pop	ar5
+      0012AD D0 06            [24] 1020 	pop	ar6
+      0012AF D0 07            [24] 1021 	pop	ar7
+                                   1022 ;	C2.c:203: *pu8Ret = 1;
+      0012B1 8D 82            [24] 1023 	mov	dpl,r5
+      0012B3 8E 83            [24] 1024 	mov	dph,r6
+      0012B5 8F F0            [24] 1025 	mov	b,r7
+      0012B7 74 01            [12] 1026 	mov	a,#0x01
+      0012B9 12 22 D4         [24] 1027 	lcall	__gptrput
+                                   1028 ;	C2.c:204: return ret;
+      0012BC 8C 82            [24] 1029 	mov	dpl,r4
+                                   1030 ;	C2.c:205: }
+      0012BE 22               [24] 1031 	ret
+                                   1032 ;------------------------------------------------------------
+                                   1033 ;Allocation info for local variables in function 'C2_WriteAR'
+                                   1034 ;------------------------------------------------------------
+                                   1035 ;u8Data                    Allocated to registers r7 
+                                   1036 ;------------------------------------------------------------
+                                   1037 ;	C2.c:207: void C2_WriteAR(uint8_t u8Data) {
+                                   1038 ;	-----------------------------------------
+                                   1039 ;	 function C2_WriteAR
+                                   1040 ;	-----------------------------------------
+      0012BF                       1041 _C2_WriteAR:
+      0012BF AF 82            [24] 1042 	mov	r7,dpl
+                                   1043 ;	C2.c:208: C2D_DIS();
+      0012C1 43 90 20         [24] 1044 	orl	_P1,#0x20
+      0012C4 43 92 20         [24] 1045 	orl	_P1_MOD_OC,#0x20
+      0012C7 43 93 20         [24] 1046 	orl	_P1_DIR_PU,#0x20
+                                   1047 ;	C2.c:209: C2K_0;
+                                   1048 ;	assignBit
+      0012CA C2 97            [12] 1049 	clr	_P17
+                                   1050 ;	C2.c:210: delay(1);
+      0012CC 90 00 01         [24] 1051 	mov	dptr,#(0x01&0x00ff)
+      0012CF E4               [12] 1052 	clr	a
+      0012D0 F5 F0            [12] 1053 	mov	b,a
+      0012D2 C0 07            [24] 1054 	push	ar7
+      0012D4 12 10 F4         [24] 1055 	lcall	_delay
+                                   1056 ;	C2.c:211: C2K_1;
+                                   1057 ;	assignBit
+      0012D7 D2 97            [12] 1058 	setb	_P17
+                                   1059 ;	C2.c:212: delay(1);
+      0012D9 90 00 01         [24] 1060 	mov	dptr,#(0x01&0x00ff)
+      0012DC E4               [12] 1061 	clr	a
+      0012DD F5 F0            [12] 1062 	mov	b,a
+      0012DF 12 10 F4         [24] 1063 	lcall	_delay
+                                   1064 ;	C2.c:214: C2D_EN();
+      0012E2 53 92 DF         [24] 1065 	anl	_P1_MOD_OC,#0xdf
+      0012E5 43 93 20         [24] 1066 	orl	_P1_DIR_PU,#0x20
+                                   1067 ;	C2.c:216: delay(6);
+      0012E8 90 00 06         [24] 1068 	mov	dptr,#(0x06&0x00ff)
+      0012EB E4               [12] 1069 	clr	a
+      0012EC F5 F0            [12] 1070 	mov	b,a
+      0012EE 12 10 F4         [24] 1071 	lcall	_delay
+                                   1072 ;	C2.c:218: C2D_1;
+                                   1073 ;	assignBit
+      0012F1 D2 95            [12] 1074 	setb	_P15
+                                   1075 ;	C2.c:219: delay(1);
+      0012F3 90 00 01         [24] 1076 	mov	dptr,#(0x01&0x00ff)
+      0012F6 E4               [12] 1077 	clr	a
+      0012F7 F5 F0            [12] 1078 	mov	b,a
+      0012F9 12 10 F4         [24] 1079 	lcall	_delay
+                                   1080 ;	C2.c:220: C2K_0;
+                                   1081 ;	assignBit
+      0012FC C2 97            [12] 1082 	clr	_P17
+                                   1083 ;	C2.c:221: delay(1);
+      0012FE 90 00 01         [24] 1084 	mov	dptr,#(0x01&0x00ff)
+      001301 E4               [12] 1085 	clr	a
+      001302 F5 F0            [12] 1086 	mov	b,a
+      001304 12 10 F4         [24] 1087 	lcall	_delay
+                                   1088 ;	C2.c:222: C2K_1;
+                                   1089 ;	assignBit
+      001307 D2 97            [12] 1090 	setb	_P17
+                                   1091 ;	C2.c:223: delay(1);
+      001309 90 00 01         [24] 1092 	mov	dptr,#(0x01&0x00ff)
+      00130C E4               [12] 1093 	clr	a
+      00130D F5 F0            [12] 1094 	mov	b,a
+      00130F 12 10 F4         [24] 1095 	lcall	_delay
+                                   1096 ;	C2.c:225: C2K_0;
+                                   1097 ;	assignBit
+      001312 C2 97            [12] 1098 	clr	_P17
+                                   1099 ;	C2.c:226: delay(1);
+      001314 90 00 01         [24] 1100 	mov	dptr,#(0x01&0x00ff)
+      001317 E4               [12] 1101 	clr	a
+      001318 F5 F0            [12] 1102 	mov	b,a
+      00131A 12 10 F4         [24] 1103 	lcall	_delay
+                                   1104 ;	C2.c:227: C2K_1;
+                                   1105 ;	assignBit
+      00131D D2 97            [12] 1106 	setb	_P17
+                                   1107 ;	C2.c:228: delay(1);
+      00131F 90 00 01         [24] 1108 	mov	dptr,#(0x01&0x00ff)
+      001322 E4               [12] 1109 	clr	a
+      001323 F5 F0            [12] 1110 	mov	b,a
+      001325 12 10 F4         [24] 1111 	lcall	_delay
+                                   1112 ;	C2.c:231: delay(6);
+      001328 90 00 06         [24] 1113 	mov	dptr,#(0x06&0x00ff)
+      00132B E4               [12] 1114 	clr	a
+      00132C F5 F0            [12] 1115 	mov	b,a
+      00132E 12 10 F4         [24] 1116 	lcall	_delay
+      001331 D0 07            [24] 1117 	pop	ar7
+                                   1118 ;	C2.c:233: C2_Send(u8Data);
+      001333 8F 82            [24] 1119 	mov	dpl,r7
+      001335 12 11 23         [24] 1120 	lcall	_C2_Send
+                                   1121 ;	C2.c:236: delay(6);
+      001338 90 00 06         [24] 1122 	mov	dptr,#(0x06&0x00ff)
+      00133B E4               [12] 1123 	clr	a
+      00133C F5 F0            [12] 1124 	mov	b,a
+      00133E 12 10 F4         [24] 1125 	lcall	_delay
+                                   1126 ;	C2.c:238: C2K_0;
+                                   1127 ;	assignBit
+      001341 C2 97            [12] 1128 	clr	_P17
+                                   1129 ;	C2.c:239: delay(1);
+      001343 90 00 01         [24] 1130 	mov	dptr,#(0x01&0x00ff)
+      001346 E4               [12] 1131 	clr	a
+      001347 F5 F0            [12] 1132 	mov	b,a
+      001349 12 10 F4         [24] 1133 	lcall	_delay
+                                   1134 ;	C2.c:240: C2K_1;
+                                   1135 ;	assignBit
+      00134C D2 97            [12] 1136 	setb	_P17
+                                   1137 ;	C2.c:241: delay(1);
+      00134E 90 00 01         [24] 1138 	mov	dptr,#(0x01&0x00ff)
+      001351 E4               [12] 1139 	clr	a
+      001352 F5 F0            [12] 1140 	mov	b,a
+      001354 12 10 F4         [24] 1141 	lcall	_delay
+                                   1142 ;	C2.c:242: C2D_DIS();
+      001357 43 90 20         [24] 1143 	orl	_P1,#0x20
+      00135A 43 92 20         [24] 1144 	orl	_P1_MOD_OC,#0x20
+      00135D 43 93 20         [24] 1145 	orl	_P1_DIR_PU,#0x20
+                                   1146 ;	C2.c:243: }
+      001360 22               [24] 1147 	ret
+                                   1148 ;------------------------------------------------------------
+                                   1149 ;Allocation info for local variables in function 'C2_ReadAR'
+                                   1150 ;------------------------------------------------------------
+                                   1151 ;ret                       Allocated to registers r7 
+                                   1152 ;------------------------------------------------------------
+                                   1153 ;	C2.c:245: uint8_t C2_ReadAR(void) {
+                                   1154 ;	-----------------------------------------
+                                   1155 ;	 function C2_ReadAR
+                                   1156 ;	-----------------------------------------
+      001361                       1157 _C2_ReadAR:
+                                   1158 ;	C2.c:247: C2D_DIS();
+      001361 43 90 20         [24] 1159 	orl	_P1,#0x20
+      001364 43 92 20         [24] 1160 	orl	_P1_MOD_OC,#0x20
+      001367 43 93 20         [24] 1161 	orl	_P1_DIR_PU,#0x20
+                                   1162 ;	C2.c:248: C2K_0;
+                                   1163 ;	assignBit
+      00136A C2 97            [12] 1164 	clr	_P17
+                                   1165 ;	C2.c:249: delay(1);
+      00136C 90 00 01         [24] 1166 	mov	dptr,#(0x01&0x00ff)
+      00136F E4               [12] 1167 	clr	a
+      001370 F5 F0            [12] 1168 	mov	b,a
+      001372 12 10 F4         [24] 1169 	lcall	_delay
+                                   1170 ;	C2.c:250: C2K_1;
+                                   1171 ;	assignBit
+      001375 D2 97            [12] 1172 	setb	_P17
+                                   1173 ;	C2.c:251: delay(1);
+      001377 90 00 01         [24] 1174 	mov	dptr,#(0x01&0x00ff)
+      00137A E4               [12] 1175 	clr	a
+      00137B F5 F0            [12] 1176 	mov	b,a
+      00137D 12 10 F4         [24] 1177 	lcall	_delay
+                                   1178 ;	C2.c:253: C2D_EN();
+      001380 53 92 DF         [24] 1179 	anl	_P1_MOD_OC,#0xdf
+      001383 43 93 20         [24] 1180 	orl	_P1_DIR_PU,#0x20
+                                   1181 ;	C2.c:255: delay(6);
+      001386 90 00 06         [24] 1182 	mov	dptr,#(0x06&0x00ff)
+      001389 E4               [12] 1183 	clr	a
+      00138A F5 F0            [12] 1184 	mov	b,a
+      00138C 12 10 F4         [24] 1185 	lcall	_delay
+                                   1186 ;	C2.c:257: C2D_0;
+                                   1187 ;	assignBit
+      00138F C2 95            [12] 1188 	clr	_P15
+                                   1189 ;	C2.c:258: delay(1);
+      001391 90 00 01         [24] 1190 	mov	dptr,#(0x01&0x00ff)
+      001394 E4               [12] 1191 	clr	a
+      001395 F5 F0            [12] 1192 	mov	b,a
+      001397 12 10 F4         [24] 1193 	lcall	_delay
+                                   1194 ;	C2.c:259: C2K_0;
+                                   1195 ;	assignBit
+      00139A C2 97            [12] 1196 	clr	_P17
+                                   1197 ;	C2.c:260: delay(1);
+      00139C 90 00 01         [24] 1198 	mov	dptr,#(0x01&0x00ff)
+      00139F E4               [12] 1199 	clr	a
+      0013A0 F5 F0            [12] 1200 	mov	b,a
+      0013A2 12 10 F4         [24] 1201 	lcall	_delay
+                                   1202 ;	C2.c:261: C2K_1;
+                                   1203 ;	assignBit
+      0013A5 D2 97            [12] 1204 	setb	_P17
+                                   1205 ;	C2.c:262: delay(1);
+      0013A7 90 00 01         [24] 1206 	mov	dptr,#(0x01&0x00ff)
+      0013AA E4               [12] 1207 	clr	a
+      0013AB F5 F0            [12] 1208 	mov	b,a
+      0013AD 12 10 F4         [24] 1209 	lcall	_delay
+                                   1210 ;	C2.c:264: C2D_1;
+                                   1211 ;	assignBit
+      0013B0 D2 95            [12] 1212 	setb	_P15
+                                   1213 ;	C2.c:265: C2K_0;
+                                   1214 ;	assignBit
+      0013B2 C2 97            [12] 1215 	clr	_P17
+                                   1216 ;	C2.c:266: delay(1);
+      0013B4 90 00 01         [24] 1217 	mov	dptr,#(0x01&0x00ff)
+      0013B7 E4               [12] 1218 	clr	a
+      0013B8 F5 F0            [12] 1219 	mov	b,a
+      0013BA 12 10 F4         [24] 1220 	lcall	_delay
+                                   1221 ;	C2.c:267: C2K_1;
+                                   1222 ;	assignBit
+      0013BD D2 97            [12] 1223 	setb	_P17
+                                   1224 ;	C2.c:268: delay(1);
+      0013BF 90 00 01         [24] 1225 	mov	dptr,#(0x01&0x00ff)
+      0013C2 E4               [12] 1226 	clr	a
+      0013C3 F5 F0            [12] 1227 	mov	b,a
+      0013C5 12 10 F4         [24] 1228 	lcall	_delay
+                                   1229 ;	C2.c:271: delay(6);
+      0013C8 90 00 06         [24] 1230 	mov	dptr,#(0x06&0x00ff)
+      0013CB E4               [12] 1231 	clr	a
+      0013CC F5 F0            [12] 1232 	mov	b,a
+      0013CE 12 10 F4         [24] 1233 	lcall	_delay
+                                   1234 ;	C2.c:273: ret=C2_Read();
+      0013D1 12 11 51         [24] 1235 	lcall	_C2_Read
+      0013D4 AF 82            [24] 1236 	mov	r7,dpl
+                                   1237 ;	C2.c:276: delay(6);
+      0013D6 90 00 06         [24] 1238 	mov	dptr,#(0x06&0x00ff)
+      0013D9 E4               [12] 1239 	clr	a
+      0013DA F5 F0            [12] 1240 	mov	b,a
+      0013DC C0 07            [24] 1241 	push	ar7
+      0013DE 12 10 F4         [24] 1242 	lcall	_delay
+                                   1243 ;	C2.c:278: C2K_0;
+                                   1244 ;	assignBit
+      0013E1 C2 97            [12] 1245 	clr	_P17
+                                   1246 ;	C2.c:279: delay(1);
+      0013E3 90 00 01         [24] 1247 	mov	dptr,#(0x01&0x00ff)
+      0013E6 E4               [12] 1248 	clr	a
+      0013E7 F5 F0            [12] 1249 	mov	b,a
+      0013E9 12 10 F4         [24] 1250 	lcall	_delay
+                                   1251 ;	C2.c:280: C2K_1;
+                                   1252 ;	assignBit
+      0013EC D2 97            [12] 1253 	setb	_P17
+                                   1254 ;	C2.c:281: delay(1);
+      0013EE 90 00 01         [24] 1255 	mov	dptr,#(0x01&0x00ff)
+      0013F1 E4               [12] 1256 	clr	a
+      0013F2 F5 F0            [12] 1257 	mov	b,a
+      0013F4 12 10 F4         [24] 1258 	lcall	_delay
+      0013F7 D0 07            [24] 1259 	pop	ar7
+                                   1260 ;	C2.c:282: return ret;
+      0013F9 8F 82            [24] 1261 	mov	dpl,r7
+                                   1262 ;	C2.c:283: }
+      0013FB 22               [24] 1263 	ret
+                                   1264 ;------------------------------------------------------------
+                                   1265 ;Allocation info for local variables in function 'C2_WriteDR'
+                                   1266 ;------------------------------------------------------------
+                                   1267 ;u8Data                    Allocated to registers r7 
+                                   1268 ;i                         Allocated to registers r5 r6 
+                                   1269 ;ret                       Allocated to registers r7 
+                                   1270 ;------------------------------------------------------------
+                                   1271 ;	C2.c:285: uint8_t C2_WriteDR(uint8_t u8Data) {
+                                   1272 ;	-----------------------------------------
+                                   1273 ;	 function C2_WriteDR
+                                   1274 ;	-----------------------------------------
+      0013FC                       1275 _C2_WriteDR:
+      0013FC AF 82            [24] 1276 	mov	r7,dpl
+                                   1277 ;	C2.c:289: C2D_DIS();
+      0013FE 43 90 20         [24] 1278 	orl	_P1,#0x20
+      001401 43 92 20         [24] 1279 	orl	_P1_MOD_OC,#0x20
+      001404 43 93 20         [24] 1280 	orl	_P1_DIR_PU,#0x20
+                                   1281 ;	C2.c:290: C2K_0;
+                                   1282 ;	assignBit
+      001407 C2 97            [12] 1283 	clr	_P17
+                                   1284 ;	C2.c:291: delay(1);
+      001409 90 00 01         [24] 1285 	mov	dptr,#(0x01&0x00ff)
+      00140C E4               [12] 1286 	clr	a
+      00140D F5 F0            [12] 1287 	mov	b,a
+      00140F C0 07            [24] 1288 	push	ar7
+      001411 12 10 F4         [24] 1289 	lcall	_delay
+                                   1290 ;	C2.c:292: C2K_1;
+                                   1291 ;	assignBit
+      001414 D2 97            [12] 1292 	setb	_P17
+                                   1293 ;	C2.c:293: delay(1);
+      001416 90 00 01         [24] 1294 	mov	dptr,#(0x01&0x00ff)
+      001419 E4               [12] 1295 	clr	a
+      00141A F5 F0            [12] 1296 	mov	b,a
+      00141C 12 10 F4         [24] 1297 	lcall	_delay
+                                   1298 ;	C2.c:295: C2D_EN();
+      00141F 53 92 DF         [24] 1299 	anl	_P1_MOD_OC,#0xdf
+      001422 43 93 20         [24] 1300 	orl	_P1_DIR_PU,#0x20
+                                   1301 ;	C2.c:297: delay(6);
+      001425 90 00 06         [24] 1302 	mov	dptr,#(0x06&0x00ff)
+      001428 E4               [12] 1303 	clr	a
+      001429 F5 F0            [12] 1304 	mov	b,a
+      00142B 12 10 F4         [24] 1305 	lcall	_delay
+                                   1306 ;	C2.c:299: C2D_1;
+                                   1307 ;	assignBit
+      00142E D2 95            [12] 1308 	setb	_P15
+                                   1309 ;	C2.c:300: delay(1);
+      001430 90 00 01         [24] 1310 	mov	dptr,#(0x01&0x00ff)
+      001433 E4               [12] 1311 	clr	a
+      001434 F5 F0            [12] 1312 	mov	b,a
+      001436 12 10 F4         [24] 1313 	lcall	_delay
+                                   1314 ;	C2.c:301: C2K_0;
+                                   1315 ;	assignBit
+      001439 C2 97            [12] 1316 	clr	_P17
+                                   1317 ;	C2.c:302: delay(1);
+      00143B 90 00 01         [24] 1318 	mov	dptr,#(0x01&0x00ff)
+      00143E E4               [12] 1319 	clr	a
+      00143F F5 F0            [12] 1320 	mov	b,a
+      001441 12 10 F4         [24] 1321 	lcall	_delay
+                                   1322 ;	C2.c:303: C2K_1;
+                                   1323 ;	assignBit
+      001444 D2 97            [12] 1324 	setb	_P17
+                                   1325 ;	C2.c:304: delay(1);
+      001446 90 00 01         [24] 1326 	mov	dptr,#(0x01&0x00ff)
+      001449 E4               [12] 1327 	clr	a
+      00144A F5 F0            [12] 1328 	mov	b,a
+      00144C 12 10 F4         [24] 1329 	lcall	_delay
+                                   1330 ;	C2.c:306: C2D_0;
+                                   1331 ;	assignBit
+      00144F C2 95            [12] 1332 	clr	_P15
+                                   1333 ;	C2.c:307: C2K_0;
+                                   1334 ;	assignBit
+      001451 C2 97            [12] 1335 	clr	_P17
+                                   1336 ;	C2.c:308: delay(1);
+      001453 90 00 01         [24] 1337 	mov	dptr,#(0x01&0x00ff)
+      001456 E4               [12] 1338 	clr	a
+      001457 F5 F0            [12] 1339 	mov	b,a
+      001459 12 10 F4         [24] 1340 	lcall	_delay
+                                   1341 ;	C2.c:309: C2K_1;
+                                   1342 ;	assignBit
+      00145C D2 97            [12] 1343 	setb	_P17
+                                   1344 ;	C2.c:310: delay(1);
+      00145E 90 00 01         [24] 1345 	mov	dptr,#(0x01&0x00ff)
+      001461 E4               [12] 1346 	clr	a
+      001462 F5 F0            [12] 1347 	mov	b,a
+      001464 12 10 F4         [24] 1348 	lcall	_delay
+                                   1349 ;	C2.c:313: delay(6);
+      001467 90 00 06         [24] 1350 	mov	dptr,#(0x06&0x00ff)
+      00146A E4               [12] 1351 	clr	a
+      00146B F5 F0            [12] 1352 	mov	b,a
+      00146D 12 10 F4         [24] 1353 	lcall	_delay
+                                   1354 ;	C2.c:315: C2K_0;
+                                   1355 ;	assignBit
+      001470 C2 97            [12] 1356 	clr	_P17
+                                   1357 ;	C2.c:316: delay(1);
+      001472 90 00 01         [24] 1358 	mov	dptr,#(0x01&0x00ff)
+      001475 E4               [12] 1359 	clr	a
+      001476 F5 F0            [12] 1360 	mov	b,a
+      001478 12 10 F4         [24] 1361 	lcall	_delay
+                                   1362 ;	C2.c:317: C2K_1;
+                                   1363 ;	assignBit
+      00147B D2 97            [12] 1364 	setb	_P17
+                                   1365 ;	C2.c:318: delay(1);
+      00147D 90 00 01         [24] 1366 	mov	dptr,#(0x01&0x00ff)
+      001480 E4               [12] 1367 	clr	a
+      001481 F5 F0            [12] 1368 	mov	b,a
+      001483 12 10 F4         [24] 1369 	lcall	_delay
+                                   1370 ;	C2.c:320: C2K_0;
+                                   1371 ;	assignBit
+      001486 C2 97            [12] 1372 	clr	_P17
+                                   1373 ;	C2.c:321: delay(1);
+      001488 90 00 01         [24] 1374 	mov	dptr,#(0x01&0x00ff)
+      00148B E4               [12] 1375 	clr	a
+      00148C F5 F0            [12] 1376 	mov	b,a
+      00148E 12 10 F4         [24] 1377 	lcall	_delay
+                                   1378 ;	C2.c:322: C2K_1;
+                                   1379 ;	assignBit
+      001491 D2 97            [12] 1380 	setb	_P17
+                                   1381 ;	C2.c:323: delay(1);
+      001493 90 00 01         [24] 1382 	mov	dptr,#(0x01&0x00ff)
+      001496 E4               [12] 1383 	clr	a
+      001497 F5 F0            [12] 1384 	mov	b,a
+      001499 12 10 F4         [24] 1385 	lcall	_delay
+                                   1386 ;	C2.c:327: delay(6);
+      00149C 90 00 06         [24] 1387 	mov	dptr,#(0x06&0x00ff)
+      00149F E4               [12] 1388 	clr	a
+      0014A0 F5 F0            [12] 1389 	mov	b,a
+      0014A2 12 10 F4         [24] 1390 	lcall	_delay
+      0014A5 D0 07            [24] 1391 	pop	ar7
+                                   1392 ;	C2.c:329: C2_Send(u8Data);
+      0014A7 8F 82            [24] 1393 	mov	dpl,r7
+      0014A9 12 11 23         [24] 1394 	lcall	_C2_Send
+                                   1395 ;	C2.c:331: C2D_DIS();
+      0014AC 43 90 20         [24] 1396 	orl	_P1,#0x20
+      0014AF 43 92 20         [24] 1397 	orl	_P1_MOD_OC,#0x20
+      0014B2 43 93 20         [24] 1398 	orl	_P1_DIR_PU,#0x20
+                                   1399 ;	C2.c:334: delay(6);
+      0014B5 90 00 06         [24] 1400 	mov	dptr,#(0x06&0x00ff)
+      0014B8 E4               [12] 1401 	clr	a
+      0014B9 F5 F0            [12] 1402 	mov	b,a
+      0014BB 12 10 F4         [24] 1403 	lcall	_delay
+                                   1404 ;	C2.c:337: ret = 0;
+      0014BE 7F 00            [12] 1405 	mov	r7,#0x00
+                                   1406 ;	C2.c:338: for (i = 0; i < 50000; ++i) {
+      0014C0 7D 00            [12] 1407 	mov	r5,#0x00
+      0014C2 7E 00            [12] 1408 	mov	r6,#0x00
+      0014C4                       1409 00104$:
+                                   1410 ;	C2.c:339: C2K_0;
+                                   1411 ;	assignBit
+      0014C4 C2 97            [12] 1412 	clr	_P17
+                                   1413 ;	C2.c:340: delay(1);
+      0014C6 90 00 01         [24] 1414 	mov	dptr,#(0x01&0x00ff)
+      0014C9 E4               [12] 1415 	clr	a
+      0014CA F5 F0            [12] 1416 	mov	b,a
+      0014CC C0 07            [24] 1417 	push	ar7
+      0014CE C0 06            [24] 1418 	push	ar6
+      0014D0 C0 05            [24] 1419 	push	ar5
+      0014D2 12 10 F4         [24] 1420 	lcall	_delay
+                                   1421 ;	C2.c:341: C2K_1;
+                                   1422 ;	assignBit
+      0014D5 D2 97            [12] 1423 	setb	_P17
+                                   1424 ;	C2.c:342: delay(1);
+      0014D7 90 00 01         [24] 1425 	mov	dptr,#(0x01&0x00ff)
+      0014DA E4               [12] 1426 	clr	a
+      0014DB F5 F0            [12] 1427 	mov	b,a
+      0014DD 12 10 F4         [24] 1428 	lcall	_delay
+      0014E0 D0 05            [24] 1429 	pop	ar5
+      0014E2 D0 06            [24] 1430 	pop	ar6
+      0014E4 D0 07            [24] 1431 	pop	ar7
+                                   1432 ;	C2.c:343: if(C2D_IN_VAL) {
+      0014E6 30 95 04         [24] 1433 	jnb	_P15,00105$
+                                   1434 ;	C2.c:344: ret = 1;
+      0014E9 7F 01            [12] 1435 	mov	r7,#0x01
+                                   1436 ;	C2.c:345: break;
+      0014EB 80 0E            [24] 1437 	sjmp	00103$
+      0014ED                       1438 00105$:
+                                   1439 ;	C2.c:338: for (i = 0; i < 50000; ++i) {
+      0014ED 0D               [12] 1440 	inc	r5
+      0014EE BD 00 01         [24] 1441 	cjne	r5,#0x00,00117$
+      0014F1 0E               [12] 1442 	inc	r6
+      0014F2                       1443 00117$:
+      0014F2 C3               [12] 1444 	clr	c
+      0014F3 ED               [12] 1445 	mov	a,r5
+      0014F4 94 50            [12] 1446 	subb	a,#0x50
+      0014F6 EE               [12] 1447 	mov	a,r6
+      0014F7 94 C3            [12] 1448 	subb	a,#0xc3
+      0014F9 40 C9            [24] 1449 	jc	00104$
+      0014FB                       1450 00103$:
+                                   1451 ;	C2.c:351: delay(6);
+      0014FB 90 00 06         [24] 1452 	mov	dptr,#(0x06&0x00ff)
+      0014FE E4               [12] 1453 	clr	a
+      0014FF F5 F0            [12] 1454 	mov	b,a
+      001501 C0 07            [24] 1455 	push	ar7
+      001503 12 10 F4         [24] 1456 	lcall	_delay
+                                   1457 ;	C2.c:353: C2K_0;
+                                   1458 ;	assignBit
+      001506 C2 97            [12] 1459 	clr	_P17
+                                   1460 ;	C2.c:354: delay(1);
+      001508 90 00 01         [24] 1461 	mov	dptr,#(0x01&0x00ff)
+      00150B E4               [12] 1462 	clr	a
+      00150C F5 F0            [12] 1463 	mov	b,a
+      00150E 12 10 F4         [24] 1464 	lcall	_delay
+                                   1465 ;	C2.c:355: C2K_1;
+                                   1466 ;	assignBit
+      001511 D2 97            [12] 1467 	setb	_P17
+                                   1468 ;	C2.c:356: delay(1);
+      001513 90 00 01         [24] 1469 	mov	dptr,#(0x01&0x00ff)
+      001516 E4               [12] 1470 	clr	a
+      001517 F5 F0            [12] 1471 	mov	b,a
+      001519 12 10 F4         [24] 1472 	lcall	_delay
+      00151C D0 07            [24] 1473 	pop	ar7
+                                   1474 ;	C2.c:357: C2D_DIS();
+      00151E 43 90 20         [24] 1475 	orl	_P1,#0x20
+      001521 43 92 20         [24] 1476 	orl	_P1_MOD_OC,#0x20
+      001524 43 93 20         [24] 1477 	orl	_P1_DIR_PU,#0x20
+                                   1478 ;	C2.c:358: return ret;
+      001527 8F 82            [24] 1479 	mov	dpl,r7
+                                   1480 ;	C2.c:359: }
+      001529 22               [24] 1481 	ret
+                                   1482 ;------------------------------------------------------------
+                                   1483 ;Allocation info for local variables in function 'C2_WriteFlash'
+                                   1484 ;------------------------------------------------------------
+                                   1485 ;u8Len                     Allocated with name '_C2_WriteFlash_PARM_2'
+                                   1486 ;pu8Data                   Allocated with name '_C2_WriteFlash_PARM_3'
+                                   1487 ;u32Address                Allocated to registers r4 r5 r6 r7 
+                                   1488 ;u8Tmp                     Allocated to registers r7 
+                                   1489 ;i                         Allocated to registers r7 
+                                   1490 ;u8Ret                     Allocated with name '_C2_WriteFlash_u8Ret_65536_52'
+                                   1491 ;------------------------------------------------------------
+                                   1492 ;	C2.c:361: uint8_t C2_WriteFlash(uint32_t u32Address, uint8_t u8Len, uint8_t *pu8Data)
+                                   1493 ;	-----------------------------------------
+                                   1494 ;	 function C2_WriteFlash
+                                   1495 ;	-----------------------------------------
+      00152A                       1496 _C2_WriteFlash:
+      00152A AC 82            [24] 1497 	mov	r4,dpl
+      00152C AD 83            [24] 1498 	mov	r5,dph
+      00152E AE F0            [24] 1499 	mov	r6,b
+      001530 FF               [12] 1500 	mov	r7,a
+                                   1501 ;	C2.c:366: C2_WriteAR(u8FPD);
+      001531 85 1D 82         [24] 1502 	mov	dpl,_u8FPD
+      001534 C0 07            [24] 1503 	push	ar7
+      001536 C0 06            [24] 1504 	push	ar6
+      001538 C0 05            [24] 1505 	push	ar5
+      00153A C0 04            [24] 1506 	push	ar4
+      00153C 12 12 BF         [24] 1507 	lcall	_C2_WriteAR
+                                   1508 ;	C2.c:367: C2_WriteDR(0x07);
+      00153F 75 82 07         [24] 1509 	mov	dpl,#0x07
+      001542 12 13 FC         [24] 1510 	lcall	_C2_WriteDR
+      001545 D0 04            [24] 1511 	pop	ar4
+      001547 D0 05            [24] 1512 	pop	ar5
+      001549 D0 06            [24] 1513 	pop	ar6
+      00154B D0 07            [24] 1514 	pop	ar7
+                                   1515 ;	C2.c:369: while(1) {
+      00154D                       1516 00104$:
+                                   1517 ;	C2.c:370: if((C2_ReadAR()&0x02)==0) {
+      00154D C0 07            [24] 1518 	push	ar7
+      00154F C0 06            [24] 1519 	push	ar6
+      001551 C0 05            [24] 1520 	push	ar5
+      001553 C0 04            [24] 1521 	push	ar4
+      001555 12 13 61         [24] 1522 	lcall	_C2_ReadAR
+      001558 E5 82            [12] 1523 	mov	a,dpl
+      00155A D0 04            [24] 1524 	pop	ar4
+      00155C D0 05            [24] 1525 	pop	ar5
+      00155E D0 06            [24] 1526 	pop	ar6
+      001560 D0 07            [24] 1527 	pop	ar7
+      001562 20 E1 E8         [24] 1528 	jb	acc.1,00104$
+                                   1529 ;	C2.c:375: while(1) {
+      001565                       1530 00109$:
+                                   1531 ;	C2.c:377: if((C2_ReadAR()&0x01)) {
+      001565 C0 07            [24] 1532 	push	ar7
+      001567 C0 06            [24] 1533 	push	ar6
+      001569 C0 05            [24] 1534 	push	ar5
+      00156B C0 04            [24] 1535 	push	ar4
+      00156D 12 13 61         [24] 1536 	lcall	_C2_ReadAR
+      001570 E5 82            [12] 1537 	mov	a,dpl
+      001572 D0 04            [24] 1538 	pop	ar4
+      001574 D0 05            [24] 1539 	pop	ar5
+      001576 D0 06            [24] 1540 	pop	ar6
+      001578 D0 07            [24] 1541 	pop	ar7
+      00157A 30 E0 E8         [24] 1542 	jnb	acc.0,00109$
+                                   1543 ;	C2.c:382: u8Tmp=C2_ReadDR(&u8Ret);
+      00157D 90 00 22         [24] 1544 	mov	dptr,#_C2_WriteFlash_u8Ret_65536_52
+      001580 75 F0 40         [24] 1545 	mov	b,#0x40
+      001583 C0 07            [24] 1546 	push	ar7
+      001585 C0 06            [24] 1547 	push	ar6
+      001587 C0 05            [24] 1548 	push	ar5
+      001589 C0 04            [24] 1549 	push	ar4
+      00158B 12 11 8F         [24] 1550 	lcall	_C2_ReadDR
+      00158E AB 82            [24] 1551 	mov	r3,dpl
+      001590 D0 04            [24] 1552 	pop	ar4
+      001592 D0 05            [24] 1553 	pop	ar5
+      001594 D0 06            [24] 1554 	pop	ar6
+      001596 D0 07            [24] 1555 	pop	ar7
+                                   1556 ;	C2.c:383: if (!u8Ret) {
+      001598 E5 22            [12] 1557 	mov	a,_C2_WriteFlash_u8Ret_65536_52
+                                   1558 ;	C2.c:384: return 0;
+      00159A 70 03            [24] 1559 	jnz	00112$
+      00159C F5 82            [12] 1560 	mov	dpl,a
+      00159E 22               [24] 1561 	ret
+      00159F                       1562 00112$:
+                                   1563 ;	C2.c:386: if(u8Tmp!=0x0D) {
+      00159F BB 0D 02         [24] 1564 	cjne	r3,#0x0d,00234$
+      0015A2 80 04            [24] 1565 	sjmp	00114$
+      0015A4                       1566 00234$:
+                                   1567 ;	C2.c:387: return 0;
+      0015A4 75 82 00         [24] 1568 	mov	dpl,#0x00
+      0015A7 22               [24] 1569 	ret
+      0015A8                       1570 00114$:
+                                   1571 ;	C2.c:391: C2_WriteDR((u32Address >> 8));
+      0015A8 8D 82            [24] 1572 	mov	dpl,r5
+      0015AA C0 07            [24] 1573 	push	ar7
+      0015AC C0 06            [24] 1574 	push	ar6
+      0015AE C0 05            [24] 1575 	push	ar5
+      0015B0 C0 04            [24] 1576 	push	ar4
+      0015B2 12 13 FC         [24] 1577 	lcall	_C2_WriteDR
+      0015B5 D0 04            [24] 1578 	pop	ar4
+      0015B7 D0 05            [24] 1579 	pop	ar5
+      0015B9 D0 06            [24] 1580 	pop	ar6
+      0015BB D0 07            [24] 1581 	pop	ar7
+                                   1582 ;	C2.c:394: while(1) {
+      0015BD                       1583 00118$:
+                                   1584 ;	C2.c:395: if((C2_ReadAR()&0x02)==0) {
+      0015BD C0 07            [24] 1585 	push	ar7
+      0015BF C0 06            [24] 1586 	push	ar6
+      0015C1 C0 05            [24] 1587 	push	ar5
+      0015C3 C0 04            [24] 1588 	push	ar4
+      0015C5 12 13 61         [24] 1589 	lcall	_C2_ReadAR
+      0015C8 E5 82            [12] 1590 	mov	a,dpl
+      0015CA D0 04            [24] 1591 	pop	ar4
+      0015CC D0 05            [24] 1592 	pop	ar5
+      0015CE D0 06            [24] 1593 	pop	ar6
+      0015D0 D0 07            [24] 1594 	pop	ar7
+      0015D2 20 E1 E8         [24] 1595 	jb	acc.1,00118$
+                                   1596 ;	C2.c:400: C2_WriteDR(u32Address);
+      0015D5 8C 82            [24] 1597 	mov	dpl,r4
+      0015D7 12 13 FC         [24] 1598 	lcall	_C2_WriteDR
+                                   1599 ;	C2.c:403: while(1) {
+      0015DA                       1600 00123$:
+                                   1601 ;	C2.c:404: if((C2_ReadAR()&0x02)==0) {
+      0015DA 12 13 61         [24] 1602 	lcall	_C2_ReadAR
+      0015DD E5 82            [12] 1603 	mov	a,dpl
+      0015DF 20 E1 F8         [24] 1604 	jb	acc.1,00123$
+                                   1605 ;	C2.c:410: C2_WriteDR(u8Len);
+      0015E2 85 1E 82         [24] 1606 	mov	dpl,_C2_WriteFlash_PARM_2
+      0015E5 12 13 FC         [24] 1607 	lcall	_C2_WriteDR
+                                   1608 ;	C2.c:413: while(1) {
+      0015E8                       1609 00128$:
+                                   1610 ;	C2.c:414: if((C2_ReadAR()&0x02)==0) {
+      0015E8 12 13 61         [24] 1611 	lcall	_C2_ReadAR
+      0015EB E5 82            [12] 1612 	mov	a,dpl
+      0015ED 20 E1 F8         [24] 1613 	jb	acc.1,00128$
+                                   1614 ;	C2.c:425: for(i=0; i<u8Len; ++i) {
+      0015F0 7F 00            [12] 1615 	mov	r7,#0x00
+      0015F2                       1616 00141$:
+      0015F2 C3               [12] 1617 	clr	c
+      0015F3 EF               [12] 1618 	mov	a,r7
+      0015F4 95 1E            [12] 1619 	subb	a,_C2_WriteFlash_PARM_2
+      0015F6 50 1F            [24] 1620 	jnc	00134$
+                                   1621 ;	C2.c:426: C2_WriteDR(pu8Data[i]);
+      0015F8 EF               [12] 1622 	mov	a,r7
+      0015F9 25 1F            [12] 1623 	add	a,_C2_WriteFlash_PARM_3
+      0015FB FC               [12] 1624 	mov	r4,a
+      0015FC E4               [12] 1625 	clr	a
+      0015FD 35 20            [12] 1626 	addc	a,(_C2_WriteFlash_PARM_3 + 1)
+      0015FF FD               [12] 1627 	mov	r5,a
+      001600 AE 21            [24] 1628 	mov	r6,(_C2_WriteFlash_PARM_3 + 2)
+      001602 8C 82            [24] 1629 	mov	dpl,r4
+      001604 8D 83            [24] 1630 	mov	dph,r5
+      001606 8E F0            [24] 1631 	mov	b,r6
+      001608 12 23 0C         [24] 1632 	lcall	__gptrget
+      00160B F5 82            [12] 1633 	mov	dpl,a
+      00160D C0 07            [24] 1634 	push	ar7
+      00160F 12 13 FC         [24] 1635 	lcall	_C2_WriteDR
+      001612 D0 07            [24] 1636 	pop	ar7
+                                   1637 ;	C2.c:425: for(i=0; i<u8Len; ++i) {
+      001614 0F               [12] 1638 	inc	r7
+                                   1639 ;	C2.c:433: while(1) {
+      001615 80 DB            [24] 1640 	sjmp	00141$
+      001617                       1641 00134$:
+                                   1642 ;	C2.c:435: if((C2_ReadAR()&0x01)) {
+      001617 12 13 61         [24] 1643 	lcall	_C2_ReadAR
+      00161A E5 82            [12] 1644 	mov	a,dpl
+      00161C 30 E0 F8         [24] 1645 	jnb	acc.0,00134$
+                                   1646 ;	C2.c:443: u8Tmp=C2_ReadDR(&u8Ret);
+      00161F 90 00 22         [24] 1647 	mov	dptr,#_C2_WriteFlash_u8Ret_65536_52
+      001622 75 F0 40         [24] 1648 	mov	b,#0x40
+      001625 12 11 8F         [24] 1649 	lcall	_C2_ReadDR
+      001628 AF 82            [24] 1650 	mov	r7,dpl
+                                   1651 ;	C2.c:445: if (!u8Ret) {
+      00162A E5 22            [12] 1652 	mov	a,_C2_WriteFlash_u8Ret_65536_52
+                                   1653 ;	C2.c:446: return 0;
+      00162C 70 03            [24] 1654 	jnz	00137$
+      00162E F5 82            [12] 1655 	mov	dpl,a
+      001630 22               [24] 1656 	ret
+      001631                       1657 00137$:
+                                   1658 ;	C2.c:449: if(u8Tmp!=0x0D) {
+      001631 BF 0D 02         [24] 1659 	cjne	r7,#0x0d,00241$
+      001634 80 04            [24] 1660 	sjmp	00139$
+      001636                       1661 00241$:
+                                   1662 ;	C2.c:450: return 0;
+      001636 75 82 00         [24] 1663 	mov	dpl,#0x00
+      001639 22               [24] 1664 	ret
+      00163A                       1665 00139$:
+                                   1666 ;	C2.c:452: return 1;
+      00163A 75 82 01         [24] 1667 	mov	dpl,#0x01
+                                   1668 ;	C2.c:453: }
+      00163D 22               [24] 1669 	ret
+                                   1670 ;------------------------------------------------------------
+                                   1671 ;Allocation info for local variables in function 'C2_ReadFlash'
+                                   1672 ;------------------------------------------------------------
+                                   1673 ;u8Len                     Allocated with name '_C2_ReadFlash_PARM_2'
+                                   1674 ;pu8Data                   Allocated with name '_C2_ReadFlash_PARM_3'
+                                   1675 ;u32Address                Allocated to registers r4 r5 r6 r7 
+                                   1676 ;u8Tmp                     Allocated to registers r7 
+                                   1677 ;i                         Allocated to registers r7 
+                                   1678 ;u8Ret                     Allocated with name '_C2_ReadFlash_u8Ret_65536_72'
+                                   1679 ;------------------------------------------------------------
+                                   1680 ;	C2.c:454: uint8_t C2_ReadFlash(uint32_t u32Address, uint8_t u8Len, uint8_t *pu8Data)
+                                   1681 ;	-----------------------------------------
+                                   1682 ;	 function C2_ReadFlash
+                                   1683 ;	-----------------------------------------
+      00163E                       1684 _C2_ReadFlash:
+      00163E AC 82            [24] 1685 	mov	r4,dpl
+      001640 AD 83            [24] 1686 	mov	r5,dph
+      001642 AE F0            [24] 1687 	mov	r6,b
+      001644 FF               [12] 1688 	mov	r7,a
+                                   1689 ;	C2.c:460: C2_WriteAR(u8FPD);
+      001645 85 1D 82         [24] 1690 	mov	dpl,_u8FPD
+      001648 C0 07            [24] 1691 	push	ar7
+      00164A C0 06            [24] 1692 	push	ar6
+      00164C C0 05            [24] 1693 	push	ar5
+      00164E C0 04            [24] 1694 	push	ar4
+      001650 12 12 BF         [24] 1695 	lcall	_C2_WriteAR
+                                   1696 ;	C2.c:462: C2_WriteDR(0x06);
+      001653 75 82 06         [24] 1697 	mov	dpl,#0x06
+      001656 12 13 FC         [24] 1698 	lcall	_C2_WriteDR
+      001659 D0 04            [24] 1699 	pop	ar4
+      00165B D0 05            [24] 1700 	pop	ar5
+      00165D D0 06            [24] 1701 	pop	ar6
+      00165F D0 07            [24] 1702 	pop	ar7
+                                   1703 ;	C2.c:463: while(1) {
+      001661                       1704 00104$:
+                                   1705 ;	C2.c:464: if((C2_ReadAR()&0x02)==0) {
+      001661 C0 07            [24] 1706 	push	ar7
+      001663 C0 06            [24] 1707 	push	ar6
+      001665 C0 05            [24] 1708 	push	ar5
+      001667 C0 04            [24] 1709 	push	ar4
+      001669 12 13 61         [24] 1710 	lcall	_C2_ReadAR
+      00166C E5 82            [12] 1711 	mov	a,dpl
+      00166E D0 04            [24] 1712 	pop	ar4
+      001670 D0 05            [24] 1713 	pop	ar5
+      001672 D0 06            [24] 1714 	pop	ar6
+      001674 D0 07            [24] 1715 	pop	ar7
+      001676 20 E1 E8         [24] 1716 	jb	acc.1,00104$
+                                   1717 ;	C2.c:469: while(1) {
+      001679                       1718 00109$:
+                                   1719 ;	C2.c:470: if((C2_ReadAR()&0x01)) {
+      001679 C0 07            [24] 1720 	push	ar7
+      00167B C0 06            [24] 1721 	push	ar6
+      00167D C0 05            [24] 1722 	push	ar5
+      00167F C0 04            [24] 1723 	push	ar4
+      001681 12 13 61         [24] 1724 	lcall	_C2_ReadAR
+      001684 E5 82            [12] 1725 	mov	a,dpl
+      001686 D0 04            [24] 1726 	pop	ar4
+      001688 D0 05            [24] 1727 	pop	ar5
+      00168A D0 06            [24] 1728 	pop	ar6
+      00168C D0 07            [24] 1729 	pop	ar7
+      00168E 30 E0 E8         [24] 1730 	jnb	acc.0,00109$
+                                   1731 ;	C2.c:474: u8Tmp = C2_ReadDR(&u8Ret);
+      001691 90 00 27         [24] 1732 	mov	dptr,#_C2_ReadFlash_u8Ret_65536_72
+      001694 75 F0 40         [24] 1733 	mov	b,#0x40
+      001697 C0 07            [24] 1734 	push	ar7
+      001699 C0 06            [24] 1735 	push	ar6
+      00169B C0 05            [24] 1736 	push	ar5
+      00169D C0 04            [24] 1737 	push	ar4
+      00169F 12 11 8F         [24] 1738 	lcall	_C2_ReadDR
+      0016A2 AB 82            [24] 1739 	mov	r3,dpl
+      0016A4 D0 04            [24] 1740 	pop	ar4
+      0016A6 D0 05            [24] 1741 	pop	ar5
+      0016A8 D0 06            [24] 1742 	pop	ar6
+      0016AA D0 07            [24] 1743 	pop	ar7
+                                   1744 ;	C2.c:476: if (!u8Ret) {
+      0016AC E5 27            [12] 1745 	mov	a,_C2_ReadFlash_u8Ret_65536_72
+                                   1746 ;	C2.c:477: return 0;
+      0016AE 70 03            [24] 1747 	jnz	00112$
+      0016B0 F5 82            [12] 1748 	mov	dpl,a
+      0016B2 22               [24] 1749 	ret
+      0016B3                       1750 00112$:
+                                   1751 ;	C2.c:479: if(u8Tmp!=0x0D) {
+      0016B3 BB 0D 02         [24] 1752 	cjne	r3,#0x0d,00245$
+      0016B6 80 04            [24] 1753 	sjmp	00114$
+      0016B8                       1754 00245$:
+                                   1755 ;	C2.c:480: return 0;
+      0016B8 75 82 00         [24] 1756 	mov	dpl,#0x00
+      0016BB 22               [24] 1757 	ret
+      0016BC                       1758 00114$:
+                                   1759 ;	C2.c:483: C2_WriteDR((u32Address >> 8));
+      0016BC 8D 82            [24] 1760 	mov	dpl,r5
+      0016BE C0 07            [24] 1761 	push	ar7
+      0016C0 C0 06            [24] 1762 	push	ar6
+      0016C2 C0 05            [24] 1763 	push	ar5
+      0016C4 C0 04            [24] 1764 	push	ar4
+      0016C6 12 13 FC         [24] 1765 	lcall	_C2_WriteDR
+      0016C9 D0 04            [24] 1766 	pop	ar4
+      0016CB D0 05            [24] 1767 	pop	ar5
+      0016CD D0 06            [24] 1768 	pop	ar6
+      0016CF D0 07            [24] 1769 	pop	ar7
+                                   1770 ;	C2.c:485: while(1) {
+      0016D1                       1771 00118$:
+                                   1772 ;	C2.c:486: if((C2_ReadAR()&0x02)==0) {
+      0016D1 C0 07            [24] 1773 	push	ar7
+      0016D3 C0 06            [24] 1774 	push	ar6
+      0016D5 C0 05            [24] 1775 	push	ar5
+      0016D7 C0 04            [24] 1776 	push	ar4
+      0016D9 12 13 61         [24] 1777 	lcall	_C2_ReadAR
+      0016DC E5 82            [12] 1778 	mov	a,dpl
+      0016DE D0 04            [24] 1779 	pop	ar4
+      0016E0 D0 05            [24] 1780 	pop	ar5
+      0016E2 D0 06            [24] 1781 	pop	ar6
+      0016E4 D0 07            [24] 1782 	pop	ar7
+      0016E6 20 E1 E8         [24] 1783 	jb	acc.1,00118$
+                                   1784 ;	C2.c:492: C2_WriteDR((u32Address));
+      0016E9 8C 82            [24] 1785 	mov	dpl,r4
+      0016EB 12 13 FC         [24] 1786 	lcall	_C2_WriteDR
+                                   1787 ;	C2.c:495: while(1) {
+      0016EE                       1788 00123$:
+                                   1789 ;	C2.c:496: if((C2_ReadAR()&0x02)==0) {
+      0016EE 12 13 61         [24] 1790 	lcall	_C2_ReadAR
+      0016F1 E5 82            [12] 1791 	mov	a,dpl
+      0016F3 20 E1 F8         [24] 1792 	jb	acc.1,00123$
+                                   1793 ;	C2.c:502: C2_WriteDR(u8Len);
+      0016F6 85 23 82         [24] 1794 	mov	dpl,_C2_ReadFlash_PARM_2
+      0016F9 12 13 FC         [24] 1795 	lcall	_C2_WriteDR
+                                   1796 ;	C2.c:504: while(1) {
+      0016FC                       1797 00128$:
+                                   1798 ;	C2.c:505: if((C2_ReadAR()&0x02)==0) {
+      0016FC 12 13 61         [24] 1799 	lcall	_C2_ReadAR
+      0016FF E5 82            [12] 1800 	mov	a,dpl
+      001701 20 E1 F8         [24] 1801 	jb	acc.1,00128$
+                                   1802 ;	C2.c:510: while(1) {
+      001704                       1803 00133$:
+                                   1804 ;	C2.c:512: if((C2_ReadAR()&0x01)) {
+      001704 12 13 61         [24] 1805 	lcall	_C2_ReadAR
+      001707 E5 82            [12] 1806 	mov	a,dpl
+      001709 30 E0 F8         [24] 1807 	jnb	acc.0,00133$
+                                   1808 ;	C2.c:517: u8Tmp = C2_ReadDR(&u8Ret);
+      00170C 90 00 27         [24] 1809 	mov	dptr,#_C2_ReadFlash_u8Ret_65536_72
+      00170F 75 F0 40         [24] 1810 	mov	b,#0x40
+      001712 12 11 8F         [24] 1811 	lcall	_C2_ReadDR
+      001715 AF 82            [24] 1812 	mov	r7,dpl
+                                   1813 ;	C2.c:518: if (!u8Ret) {
+      001717 E5 27            [12] 1814 	mov	a,_C2_ReadFlash_u8Ret_65536_72
+                                   1815 ;	C2.c:519: return 0;
+      001719 70 03            [24] 1816 	jnz	00136$
+      00171B F5 82            [12] 1817 	mov	dpl,a
+      00171D 22               [24] 1818 	ret
+      00171E                       1819 00136$:
+                                   1820 ;	C2.c:521: if(u8Tmp!=0x0D) {
+      00171E BF 0D 02         [24] 1821 	cjne	r7,#0x0d,00251$
+      001721 80 04            [24] 1822 	sjmp	00169$
+      001723                       1823 00251$:
+                                   1824 ;	C2.c:522: return 0;
+      001723 75 82 00         [24] 1825 	mov	dpl,#0x00
+                                   1826 ;	C2.c:525: for(i=0; i<u8Len; ++i) {
+      001726 22               [24] 1827 	ret
+      001727                       1828 00169$:
+      001727 7F 00            [12] 1829 	mov	r7,#0x00
+      001729                       1830 00148$:
+      001729 C3               [12] 1831 	clr	c
+      00172A EF               [12] 1832 	mov	a,r7
+      00172B 95 23            [12] 1833 	subb	a,_C2_ReadFlash_PARM_2
+      00172D 50 45            [24] 1834 	jnc	00146$
+                                   1835 ;	C2.c:526: while(1) {
+      00172F                       1836 00142$:
+                                   1837 ;	C2.c:528: if((C2_ReadAR()&0x01)) {
+      00172F C0 07            [24] 1838 	push	ar7
+      001731 12 13 61         [24] 1839 	lcall	_C2_ReadAR
+      001734 E5 82            [12] 1840 	mov	a,dpl
+      001736 D0 07            [24] 1841 	pop	ar7
+      001738 30 E0 F4         [24] 1842 	jnb	acc.0,00142$
+                                   1843 ;	C2.c:532: pu8Data[i]=C2_ReadDR(&u8Ret);
+      00173B EF               [12] 1844 	mov	a,r7
+      00173C 25 24            [12] 1845 	add	a,_C2_ReadFlash_PARM_3
+      00173E FC               [12] 1846 	mov	r4,a
+      00173F E4               [12] 1847 	clr	a
+      001740 35 25            [12] 1848 	addc	a,(_C2_ReadFlash_PARM_3 + 1)
+      001742 FD               [12] 1849 	mov	r5,a
+      001743 AE 26            [24] 1850 	mov	r6,(_C2_ReadFlash_PARM_3 + 2)
+      001745 90 00 27         [24] 1851 	mov	dptr,#_C2_ReadFlash_u8Ret_65536_72
+      001748 75 F0 40         [24] 1852 	mov	b,#0x40
+      00174B C0 07            [24] 1853 	push	ar7
+      00174D C0 06            [24] 1854 	push	ar6
+      00174F C0 05            [24] 1855 	push	ar5
+      001751 C0 04            [24] 1856 	push	ar4
+      001753 12 11 8F         [24] 1857 	lcall	_C2_ReadDR
+      001756 AB 82            [24] 1858 	mov	r3,dpl
+      001758 D0 04            [24] 1859 	pop	ar4
+      00175A D0 05            [24] 1860 	pop	ar5
+      00175C D0 06            [24] 1861 	pop	ar6
+      00175E D0 07            [24] 1862 	pop	ar7
+      001760 8C 82            [24] 1863 	mov	dpl,r4
+      001762 8D 83            [24] 1864 	mov	dph,r5
+      001764 8E F0            [24] 1865 	mov	b,r6
+      001766 EB               [12] 1866 	mov	a,r3
+      001767 12 22 D4         [24] 1867 	lcall	__gptrput
+                                   1868 ;	C2.c:533: if (!u8Ret) {
+      00176A E5 27            [12] 1869 	mov	a,_C2_ReadFlash_u8Ret_65536_72
+                                   1870 ;	C2.c:534: return 0;
+      00176C 70 03            [24] 1871 	jnz	00149$
+      00176E F5 82            [12] 1872 	mov	dpl,a
+      001770 22               [24] 1873 	ret
+      001771                       1874 00149$:
+                                   1875 ;	C2.c:525: for(i=0; i<u8Len; ++i) {
+      001771 0F               [12] 1876 	inc	r7
+      001772 80 B5            [24] 1877 	sjmp	00148$
+      001774                       1878 00146$:
+                                   1879 ;	C2.c:538: return 1;
+      001774 75 82 01         [24] 1880 	mov	dpl,#0x01
+                                   1881 ;	C2.c:539: }
+      001777 22               [24] 1882 	ret
+                                   1883 	.area CSEG    (CODE)
+                                   1884 	.area CONST   (CODE)
+                                   1885 	.area XINIT   (CODE)
+                                   1886 	.area CABS    (ABS,CODE)
